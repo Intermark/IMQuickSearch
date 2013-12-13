@@ -22,6 +22,11 @@
 		B64BB737185B8780002885C2 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B64BB716185B8780002885C2 /* UIKit.framework */; };
 		B64BB73F185B8780002885C2 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = B64BB73D185B8780002885C2 /* InfoPlist.strings */; };
 		B64BB741185B8780002885C2 /* IMQuickSearchTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B64BB740185B8780002885C2 /* IMQuickSearchTests.m */; };
+		B64BB74D185B87CC002885C2 /* IMQuickSearch.m in Sources */ = {isa = PBXBuildFile; fileRef = B64BB74C185B87CC002885C2 /* IMQuickSearch.m */; };
+		B64BB750185B8A07002885C2 /* IMQuickSearchFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = B64BB74F185B8A07002885C2 /* IMQuickSearchFilter.m */; };
+		B64BB754185B9ED3002885C2 /* IMPerson.m in Sources */ = {isa = PBXBuildFile; fileRef = B64BB753185B9ED3002885C2 /* IMPerson.m */; };
+		B64BB757185BA186002885C2 /* IMAnimal.m in Sources */ = {isa = PBXBuildFile; fileRef = B64BB756185BA186002885C2 /* IMAnimal.m */; };
+		B64BB75A185BA9F5002885C2 /* IMNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = B64BB759185BA9F5002885C2 /* IMNumber.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +60,16 @@
 		B64BB73C185B8780002885C2 /* IMQuickSearchTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "IMQuickSearchTests-Info.plist"; sourceTree = "<group>"; };
 		B64BB73E185B8780002885C2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		B64BB740185B8780002885C2 /* IMQuickSearchTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IMQuickSearchTests.m; sourceTree = "<group>"; };
+		B64BB74B185B87CC002885C2 /* IMQuickSearch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMQuickSearch.h; sourceTree = "<group>"; };
+		B64BB74C185B87CC002885C2 /* IMQuickSearch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IMQuickSearch.m; sourceTree = "<group>"; };
+		B64BB74E185B8A07002885C2 /* IMQuickSearchFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IMQuickSearchFilter.h; path = Classes/IMQuickSearchFilter.h; sourceTree = SOURCE_ROOT; };
+		B64BB74F185B8A07002885C2 /* IMQuickSearchFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IMQuickSearchFilter.m; path = Classes/IMQuickSearchFilter.m; sourceTree = SOURCE_ROOT; };
+		B64BB752185B9ED3002885C2 /* IMPerson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMPerson.h; sourceTree = "<group>"; };
+		B64BB753185B9ED3002885C2 /* IMPerson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IMPerson.m; sourceTree = "<group>"; };
+		B64BB755185BA186002885C2 /* IMAnimal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMAnimal.h; sourceTree = "<group>"; };
+		B64BB756185BA186002885C2 /* IMAnimal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IMAnimal.m; sourceTree = "<group>"; };
+		B64BB758185BA9F5002885C2 /* IMNumber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMNumber.h; sourceTree = "<group>"; };
+		B64BB759185BA9F5002885C2 /* IMNumber.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IMNumber.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +129,8 @@
 		B64BB718185B8780002885C2 /* IMQuickSearch */ = {
 			isa = PBXGroup;
 			children = (
+				B64BB751185B9EC4002885C2 /* Demo Objects */,
+				B64BB74A185B8788002885C2 /* QuickSearch Classes */,
 				B64BB721185B8780002885C2 /* IMAppDelegate.h */,
 				B64BB722185B8780002885C2 /* IMAppDelegate.m */,
 				B64BB724185B8780002885C2 /* Main_iPhone.storyboard */,
@@ -153,6 +170,30 @@
 				B64BB73D185B8780002885C2 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		B64BB74A185B8788002885C2 /* QuickSearch Classes */ = {
+			isa = PBXGroup;
+			children = (
+				B64BB74B185B87CC002885C2 /* IMQuickSearch.h */,
+				B64BB74C185B87CC002885C2 /* IMQuickSearch.m */,
+				B64BB74E185B8A07002885C2 /* IMQuickSearchFilter.h */,
+				B64BB74F185B8A07002885C2 /* IMQuickSearchFilter.m */,
+			);
+			name = "QuickSearch Classes";
+			sourceTree = "<group>";
+		};
+		B64BB751185B9EC4002885C2 /* Demo Objects */ = {
+			isa = PBXGroup;
+			children = (
+				B64BB752185B9ED3002885C2 /* IMPerson.h */,
+				B64BB753185B9ED3002885C2 /* IMPerson.m */,
+				B64BB755185BA186002885C2 /* IMAnimal.h */,
+				B64BB756185BA186002885C2 /* IMAnimal.m */,
+				B64BB758185BA9F5002885C2 /* IMNumber.h */,
+				B64BB759185BA9F5002885C2 /* IMNumber.m */,
+			);
+			name = "Demo Objects";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -254,9 +295,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B64BB750185B8A07002885C2 /* IMQuickSearchFilter.m in Sources */,
 				B64BB723185B8780002885C2 /* IMAppDelegate.m in Sources */,
+				B64BB754185B9ED3002885C2 /* IMPerson.m in Sources */,
 				B64BB71F185B8780002885C2 /* main.m in Sources */,
+				B64BB75A185BA9F5002885C2 /* IMNumber.m in Sources */,
+				B64BB757185BA186002885C2 /* IMAnimal.m in Sources */,
 				B64BB72C185B8780002885C2 /* IMViewController.m in Sources */,
+				B64BB74D185B87CC002885C2 /* IMQuickSearch.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
