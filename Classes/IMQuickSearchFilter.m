@@ -51,7 +51,7 @@
 
 #pragma mark - Filtering Sub-Methods
 - (BOOL)checkObject:(id)obj withValue:(id)value forKey:(NSString *)key {
-    // If no value, add the object, because it's like returning the enire list
+    // Nil value returns the entire array
     if (!value) {
         return YES;
     }
