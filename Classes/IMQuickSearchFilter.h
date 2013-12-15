@@ -31,6 +31,6 @@
  @param value
  @returns NSArray
  */
-- (NSArray *)filterWithValue:(id)value;
+- (NSArray *)filteredObjectsWithValue:(id)value;
 
 @end

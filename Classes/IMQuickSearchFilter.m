@@ -20,7 +20,7 @@
 }
 
 #pragma mark - Filter With Value
-- (NSArray *)filterWithValue:(id)value {
+- (NSArray *)filteredObjectsWithValue:(id)value {
     // If no value, return all results
     if (!value) {
         return self.searchArray;

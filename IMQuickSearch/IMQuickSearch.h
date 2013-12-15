@@ -13,7 +13,6 @@
 
 #pragma mark - Properties
 @property (nonatomic, assign) float fuzziness;
-@property (nonatomic, retain) NSArray *filteredArray;
 @property (nonatomic, retain) NSArray *masterArray;
 
 #pragma mark - Init

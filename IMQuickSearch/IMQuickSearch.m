@@ -32,7 +32,7 @@
     
     // Filter each object based on value
     for (IMQuickSearchFilter *quickFilter in self.masterArray) {
-        [filteredSet addObjectsFromArray:[quickFilter filterWithValue:value]];
+        [filteredSet addObjectsFromArray:[quickFilter filteredObjectsWithValue:value]];
     }
     
     // Return array from set
