@@ -64,7 +64,7 @@
 
 #pragma mark - Test Quick Search
 - (void)testQuickSearchWithText:(NSString *)searchText {
-    NSArray *filteredArray = [self.QuickSearch filterWithValue:@(69)];
+    NSArray *filteredArray = [self.QuickSearch filteredObjectsWithValue:@(69)];
     NSLog(@"%@", filteredArray.count > 0 ? [filteredArray[0] firstName] : @"Hello");
 }
 

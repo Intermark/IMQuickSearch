@@ -38,6 +38,6 @@
  @param value   - A value to filter over
  @returns NSArray
  */
-- (NSArray *)filterWithValue:(id)value;
+- (NSArray *)filteredObjectsWithValue:(id)value;
 
 @end

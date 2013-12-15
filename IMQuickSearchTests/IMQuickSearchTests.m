@@ -72,7 +72,7 @@
 #pragma mark - Tests
 - (void)testAllStringFilteredResultsAreValid {
     NSString *filterValue = @"al";
-    NSArray *filteredResults = [self.QuickSearch filterWithValue:filterValue];
+    NSArray *filteredResults = [self.QuickSearch filteredObjectsWithValue:filterValue];
     for (id obj in filteredResults) {
         if ([obj isKindOfClass:[IMPerson class]]) {
             BOOL firstNameMatches = [self checkStringProperty:[(IMPerson *)obj firstName] withValue:filterValue];
@@ -93,7 +93,7 @@
 
 - (void)testNumericalFilterResultsAreValid {
     NSNumber *filterValue = @(6);
-    NSArray *filteredResults = [self.QuickSearch filterWithValue:filterValue];
+    NSArray *filteredResults = [self.QuickSearch filteredObjectsWithValue:filterValue];
     for (id obj in filteredResults) {
         if ([obj isKindOfClass:[IMPerson class]]) {
             XCTAssert(NO, @"%s Failed.", __PRETTY_FUNCTION__);
@@ -109,17 +109,17 @@
 }
 
 - (void)testNumbersDontFilterStrings {
-    NSArray *filteredResults = [self.QuickSearch filterWithValue:@(100009)];
+    NSArray *filteredResults = [self.QuickSearch filteredObjectsWithValue:@(100009)];
     XCTAssertEqualObjects(@(filteredResults.count), @(0), @"%s Failed.", __PRETTY_FUNCTION__);
 }
 
 - (void)testBlankStringReturnsAllStringValues {
-    NSArray *filteredResults = [self.QuickSearch filterWithValue:@""];
+    NSArray *filteredResults = [self.QuickSearch filteredObjectsWithValue:@""];
     XCTAssertEqualObjects(@(filteredResults.count), @(self.People.count + self.Animals.count), @"%s Failed.", __PRETTY_FUNCTION__);
 }
 
 - (void)testNilFilterReturnsAllArrayValues {
-    NSArray *filteredResults = [self.QuickSearch filterWithValue:nil];
+    NSArray *filteredResults = [self.QuickSearch filteredObjectsWithValue:nil];
     XCTAssertEqualObjects(@(filteredResults.count), @(self.People.count + self.Animals.count + self.Numbers.count), @"%s Failed.", __PRETTY_FUNCTION__);
 }
 

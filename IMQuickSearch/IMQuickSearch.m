@@ -26,7 +26,7 @@
 
 
 #pragma mark - Filter
-- (NSArray *)filterWithValue:(id)value {
+- (NSArray *)filteredObjectsWithValue:(id)value {
     // Set Up Filter
     NSMutableSet *filteredSet = [NSMutableSet set];
     
