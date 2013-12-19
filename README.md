@@ -50,12 +50,18 @@ Filtering with NSStrings will probably be the most common use case, but you can 
 * Filtering by <code>nil</code> returns ALL objects
 * IMQuickSearch returns UNIQUE results.
 
-**Adding Filters on the fly**
+**Manipulating Filters on the fly**
 
-You can also add new IMQuickSearchFilter objects on the fly with this method:
+You can also add/remove IMQuickSearchFilter objects on the fly with this method:
 
 ```objc
-[self.QuickSearch addFilter:(IMQuickSearchFilter *)someNewFilter];
+IMQuickSearchFilter *someFilter;
+
+// Add
+[self.QuickSearch addFilter:someFilter];
+
+// Remove
+[self.QuickSearch removeFilter:someFilter];
 ```
 
 ## Demo Project
