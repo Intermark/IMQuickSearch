@@ -25,7 +25,7 @@ To begin, you are going to want to have your NSArrays of NSObjects already popul
 IMQuickSearchFilter *peopleFilter = [IMQuickSearchFilter filterWithSearchArray:self.People keys:@[@"firstName",@"lastName"]];
 IMQuickSearchFilter *animalFilter = [IMQuickSearchFilter filterWithSearchArray:self.Animals keys:@[@"name"]];
 ```
-So here I just created two filters, one for an array of people and one for an array of animals. The keys parameter corresponds directly to properties on the objects inside of each array. For instance, I have a Person object with a <code>firstName</code> and a <code>lastName</code> property, hence the two keys I added to the first filter.
+So here I just created two filters, one for an array of people and one for an array of animals. The keys parameter corresponds directly to properties on the objects inside of each array. For instance, I have a Person object with a <code>firstName</code> and a <code>lastName</code> property, hence the two keys I added to the first filter. You don't have to add all of the properties to the keys array; just add the ones you want to filter by.
 
 Next you are going to initialize your IMQuickSearch master object with the two filters you created:
 
