@@ -8,8 +8,8 @@ IMQuickSearch is a tool for quickly filtering multiple NSArrays that contain a v
 
 All of the important classes are located in the top-level directory <code>Classes</code>. The files you want to copy into your project are:
 
-* IMQuickSearch.{h,m}
-* IMQuickSearchFilter.{h,m}
+* <code>IMQuickSearch.{h,m}</code>
+* <code>IMQuickSearchFilter.{h,m}</code>
 
 Just <code>#import "IMQuickSearch.h"</code> in any class you want to use IMQuickSearch in.
 
@@ -48,7 +48,7 @@ Filtering with NSStrings will probably be the most common use case, but you can 
 **Extras**
 * Filtering by <code>@""</code> returns ALL objects with NSString properties
 * Filtering by <code>nil</code> returns ALL objects
-* IMQuickSearch returns unique results, not all results that filter. You can't have the same object twice in the returned results.
+* IMQuickSearch returns UNIQUE results.
 
 **Adding Filters on the fly**
 
