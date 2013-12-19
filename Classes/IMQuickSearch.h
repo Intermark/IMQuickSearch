@@ -36,6 +36,14 @@
  */
 
 
+#pragma mark - Filter Management
+/**
+ Adds a new IMQuickSearchFilter to search with.
+ @param filter  - IMQuickSearchFilter
+ */
+- (void)addFilter:(IMQuickSearchFilter *)filter;
+
+
 #pragma mark - Filter
 /**
  Filters all of the IMQuickSearchFilter objects with a given value. Each item in the array is unique.

@@ -42,4 +42,13 @@
 }
 
 
+#pragma mark - Filter Management
+- (void)addFilter:(IMQuickSearchFilter *)filter {
+    if (filter) {
+        NSMutableArray *newMasterArray = [self.masterArray mutableCopy];
+        [newMasterArray addObject:filter];
+        self.masterArray = newMasterArray;
+    }
+}
+
 @end

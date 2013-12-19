@@ -48,6 +48,15 @@ Filtering with NSStrings will probably be the most common use case, but you can 
 **Extras**
 * Filtering by <code>@""</code> returns ALL objects with NSString properties
 * Filtering by <code>nil</code> returns ALL objects
+* IMQuickSearch returns unique results, not all results that filter. You can't have the same object twice in the returned results.
+
+**Adding Filters on the fly**
+
+You can also add new IMQuickSearchFilter objects on the fly with this method:
+
+```objc
+[self.QuickSearch addFilter:(IMQuickSearchFilter *)someNewFilter];
+```
 
 ## Demo Project
 
