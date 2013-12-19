@@ -15,5 +15,6 @@
 
 + (IMPerson *)newPerson;
 + (NSArray *)arrayOfPeople:(int)count;
+- (NSString *)condensedName;
 
 @end

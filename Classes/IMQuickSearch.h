@@ -23,13 +23,17 @@
  */
 - (instancetype)initWithFilters:(NSArray *)filters;
 
+
 /**
  Initializes a new IMQuickSearchObject with an NSArray of IMQuickSearchFilter objects and a fuzziness value.
  @param filters - NSArray of IMQuickSearchFilter objects
  @param fuzziness - float between 0 and 1, where 0 is a direct match, and 1 gives more leeway
  @returns IMQuickSearch
  */
+// No Fuzziness for Now
+/*
 - (instancetype)initWithFilters:(NSArray *)filters fuzziness:(float)fuzziness;
+ */
 
 
 #pragma mark - Filter

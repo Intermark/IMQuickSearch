@@ -22,11 +22,12 @@
 		B64BB737185B8780002885C2 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B64BB716185B8780002885C2 /* UIKit.framework */; };
 		B64BB73F185B8780002885C2 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = B64BB73D185B8780002885C2 /* InfoPlist.strings */; };
 		B64BB741185B8780002885C2 /* IMQuickSearchTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B64BB740185B8780002885C2 /* IMQuickSearchTests.m */; };
-		B64BB74D185B87CC002885C2 /* IMQuickSearch.m in Sources */ = {isa = PBXBuildFile; fileRef = B64BB74C185B87CC002885C2 /* IMQuickSearch.m */; };
 		B64BB750185B8A07002885C2 /* IMQuickSearchFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = B64BB74F185B8A07002885C2 /* IMQuickSearchFilter.m */; };
 		B64BB754185B9ED3002885C2 /* IMPerson.m in Sources */ = {isa = PBXBuildFile; fileRef = B64BB753185B9ED3002885C2 /* IMPerson.m */; };
 		B64BB757185BA186002885C2 /* IMAnimal.m in Sources */ = {isa = PBXBuildFile; fileRef = B64BB756185BA186002885C2 /* IMAnimal.m */; };
 		B64BB75A185BA9F5002885C2 /* IMNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = B64BB759185BA9F5002885C2 /* IMNumber.m */; };
+		B690D98C1863A124003AA110 /* search-01.png in Resources */ = {isa = PBXBuildFile; fileRef = B690D98B1863A124003AA110 /* search-01.png */; };
+		B690D98F1863A709003AA110 /* IMQuickSearch.m in Sources */ = {isa = PBXBuildFile; fileRef = B690D98E1863A709003AA110 /* IMQuickSearch.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,8 +61,6 @@
 		B64BB73C185B8780002885C2 /* IMQuickSearchTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "IMQuickSearchTests-Info.plist"; sourceTree = "<group>"; };
 		B64BB73E185B8780002885C2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		B64BB740185B8780002885C2 /* IMQuickSearchTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IMQuickSearchTests.m; sourceTree = "<group>"; };
-		B64BB74B185B87CC002885C2 /* IMQuickSearch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMQuickSearch.h; sourceTree = "<group>"; };
-		B64BB74C185B87CC002885C2 /* IMQuickSearch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IMQuickSearch.m; sourceTree = "<group>"; };
 		B64BB74E185B8A07002885C2 /* IMQuickSearchFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IMQuickSearchFilter.h; path = Classes/IMQuickSearchFilter.h; sourceTree = SOURCE_ROOT; };
 		B64BB74F185B8A07002885C2 /* IMQuickSearchFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IMQuickSearchFilter.m; path = Classes/IMQuickSearchFilter.m; sourceTree = SOURCE_ROOT; };
 		B64BB752185B9ED3002885C2 /* IMPerson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMPerson.h; sourceTree = "<group>"; };
@@ -70,6 +69,9 @@
 		B64BB756185BA186002885C2 /* IMAnimal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IMAnimal.m; sourceTree = "<group>"; };
 		B64BB758185BA9F5002885C2 /* IMNumber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMNumber.h; sourceTree = "<group>"; };
 		B64BB759185BA9F5002885C2 /* IMNumber.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IMNumber.m; sourceTree = "<group>"; };
+		B690D98B1863A124003AA110 /* search-01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "search-01.png"; sourceTree = "<group>"; };
+		B690D98D1863A709003AA110 /* IMQuickSearch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IMQuickSearch.h; path = Classes/IMQuickSearch.h; sourceTree = SOURCE_ROOT; };
+		B690D98E1863A709003AA110 /* IMQuickSearch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IMQuickSearch.m; path = Classes/IMQuickSearch.m; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -146,6 +148,7 @@
 		B64BB719185B8780002885C2 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				B690D98B1863A124003AA110 /* search-01.png */,
 				B64BB71A185B8780002885C2 /* IMQuickSearch-Info.plist */,
 				B64BB71B185B8780002885C2 /* InfoPlist.strings */,
 				B64BB71E185B8780002885C2 /* main.m */,
@@ -175,8 +178,8 @@
 		B64BB74A185B8788002885C2 /* QuickSearch Classes */ = {
 			isa = PBXGroup;
 			children = (
-				B64BB74B185B87CC002885C2 /* IMQuickSearch.h */,
-				B64BB74C185B87CC002885C2 /* IMQuickSearch.m */,
+				B690D98D1863A709003AA110 /* IMQuickSearch.h */,
+				B690D98E1863A709003AA110 /* IMQuickSearch.m */,
 				B64BB74E185B8A07002885C2 /* IMQuickSearchFilter.h */,
 				B64BB74F185B8A07002885C2 /* IMQuickSearchFilter.m */,
 			);
@@ -273,6 +276,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B690D98C1863A124003AA110 /* search-01.png in Resources */,
 				B64BB729185B8780002885C2 /* Main_iPad.storyboard in Resources */,
 				B64BB72E185B8780002885C2 /* Images.xcassets in Resources */,
 				B64BB726185B8780002885C2 /* Main_iPhone.storyboard in Resources */,
@@ -298,11 +302,11 @@
 				B64BB750185B8A07002885C2 /* IMQuickSearchFilter.m in Sources */,
 				B64BB723185B8780002885C2 /* IMAppDelegate.m in Sources */,
 				B64BB754185B9ED3002885C2 /* IMPerson.m in Sources */,
+				B690D98F1863A709003AA110 /* IMQuickSearch.m in Sources */,
 				B64BB71F185B8780002885C2 /* main.m in Sources */,
 				B64BB75A185BA9F5002885C2 /* IMNumber.m in Sources */,
 				B64BB757185BA186002885C2 /* IMAnimal.m in Sources */,
 				B64BB72C185B8780002885C2 /* IMViewController.m in Sources */,
-				B64BB74D185B87CC002885C2 /* IMQuickSearch.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -521,6 +525,7 @@
 				B64BB746185B8780002885C2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		B64BB747185B8780002885C2 /* Build configuration list for PBXNativeTarget "IMQuickSearchTests" */ = {
 			isa = XCConfigurationList;
@@ -529,6 +534,7 @@
 				B64BB749185B8780002885C2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

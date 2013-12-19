@@ -12,6 +12,8 @@
 
 #pragma mark - Init
 - (instancetype)initWithFilters:(NSArray *)filters {
+    // Fuzziness is not implemented due to speed considerations
+    // This value does not matter at all.
     return [self initWithFilters:filters fuzziness:0.0];
 }
 
