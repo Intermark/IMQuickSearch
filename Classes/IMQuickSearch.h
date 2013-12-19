@@ -43,6 +43,12 @@
  */
 - (void)addFilter:(IMQuickSearchFilter *)filter;
 
+/**
+ Removes a given filter.
+ @param filter  - IMQuickSearchFilter
+ */
+- (void)removeFilter:(IMQuickSearchFilter *)filter;
+
 
 #pragma mark - Filter
 /**
@@ -51,5 +57,6 @@
  @returns NSArray
  */
 - (NSArray *)filteredObjectsWithValue:(id)value;
+
 
 @end

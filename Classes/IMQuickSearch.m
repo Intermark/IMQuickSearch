@@ -51,4 +51,12 @@
     }
 }
 
+- (void)removeFilter:(IMQuickSearchFilter *)filter {
+    if (filter) {
+        NSMutableArray *newMasterArray = [self.masterArray mutableCopy];
+        [newMasterArray removeObject:filter];
+        self.masterArray = newMasterArray;
+    }
+}
+
 @end
