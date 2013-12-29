@@ -45,6 +45,20 @@ NSArray *filteredResults = [self.QuickSearch filteredObjectsWithValue:(id)someVa
 
 Filtering with NSStrings will probably be the most common use case, but you can filter by other class types as well. NSString filtering runs a comparison search over the property, resulting in fast filtering by strings. Any other value runs an equals search over the property matching value types exactly. For instance, if you are searching an NSNumber property with a value of <code>@4</code> then only properties that match will be returned, not a property whose value is <code>@40</code>.
 
+**Asyncronously Searching**
+
+The main <code>filteredObjectsWithValue:</code> method searches the objects synchronously, on the main thread. However, if your data set is fairly large, you may want to move this work to a background thread so as not to disrupt or freeze the UI. You can do this with the following method:
+
+```objc
+__block NSArray *results;
+[self.QuickSearch asynchronouslyFilterObjectsWithValue:@"Hello" completion:^(NSArray *filteredResults)
+{
+    if (filteredResults) {
+        results = filteredResults;
+    }
+}];
+```
+
 **Extras**
 * Filtering by <code>@""</code> returns ALL objects with NSString properties
 * Filtering by <code>nil</code> returns ALL objects
