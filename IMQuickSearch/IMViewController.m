@@ -51,7 +51,17 @@
 
 #pragma mark - Filter the Quick Search
 - (void)filterResults {
-    self.FilteredResults = [self.QuickSearch filteredObjectsWithValue:self.searchTextField.text];
+    // Asynchronously
+    [self.QuickSearch asynchronouslyFilteredObjectsWithValue:self.searchTextField.text completion:^(NSArray *filteredResults) {
+        [self updateTableViewWithNewResults:filteredResults];
+    }];
+    
+    // Synchronously
+    //[self updateTableViewWithNewResults:[self.QuickSearch filteredObjectsWithValue:self.searchTextField.text]];
+}
+
+- (void)updateTableViewWithNewResults:(NSArray *)results {
+    self.FilteredResults = results;
     [self.searchTableView reloadData];
 }
 

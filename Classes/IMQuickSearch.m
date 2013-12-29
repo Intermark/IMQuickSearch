@@ -41,6 +41,17 @@
     return [filteredSet allObjects];
 }
 
+- (void)asynchronouslyFilterObjectsWithValue:(id)value completion:(void (^)(NSArray *filteredResults))completion {
+    // Start another thread
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSArray *filteredObjects = [self filteredObjectsWithValue:value];
+        // Get Main Thread
+        dispatch_async(dispatch_get_main_queue(), ^{
+            completion(filteredObjects);
+        });
+    });
+}
+
 
 #pragma mark - Filter Management
 - (void)addFilter:(IMQuickSearchFilter *)filter {

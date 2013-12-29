@@ -58,5 +58,12 @@
  */
 - (NSArray *)filteredObjectsWithValue:(id)value;
 
+/**
+ Filters all of the IMQuickSearchFilter objects with a given value asynchronously, and uses the completion block callback to present the items when finished. Each item in the array is unique.
+ @param value   - A value to filter over
+ @returns NSArray
+ */
+- (void)asynchronouslyFilterObjectsWithValue:(id)value completion:(void (^)(NSArray *filteredResults))completion;
+
 
 @end
