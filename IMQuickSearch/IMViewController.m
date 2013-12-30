@@ -52,7 +52,7 @@
 #pragma mark - Filter the Quick Search
 - (void)filterResults {
     // Asynchronously
-    [self.QuickSearch asynchronouslyFilteredObjectsWithValue:self.searchTextField.text completion:^(NSArray *filteredResults) {
+    [self.QuickSearch asynchronouslyFilterObjectsWithValue:self.searchTextField.text completion:^(NSArray *filteredResults) {
         [self updateTableViewWithNewResults:filteredResults];
     }];
     
