@@ -78,6 +78,35 @@ IMQuickSearchFilter *someFilter;
 [self.QuickSearch removeFilter:someFilter];
 ```
 
+## Benchmarks
+
+After some basic tests with the same kind of <code>IMPerson</code>, <code>IMAnimal</code>, and <code>IMNumber</code> objects from the demo project, it appears that this grows linearlly with the growth of the data size. A 10x increase in objects results in a 10x decrease in speed. Here's some results (each set is 1/3 People, 1/3 Animals, 1/3 Numbers):
+
+```
+3000 objects:
+2013-12-30 13:46:32.915 IMQuickSearch[68903:70b] Start
+2013-12-30 13:46:32.932 IMQuickSearch[68903:70b] Stop
+.017s
+
+
+30000 objects:
+2013-12-30 13:48:58.146 IMQuickSearch[68973:70b] Start
+2013-12-30 13:48:58.318 IMQuickSearch[68973:70b] Stop
+.172s
+
+
+300000 objects:
+2013-12-30 13:50:01.880 IMQuickSearch[68995:70b] Start
+2013-12-30 13:50:03.488 IMQuickSearch[68995:70b] Stop
+1.608s
+
+
+3000000 objects:
+2013-12-30 13:51:35.259 IMQuickSearch[69024:70b] Start
+2013-12-30 13:51:52.056 IMQuickSearch[69024:70b] Stop
+16.797s
+```
+
 ## Demo Project
 
 Run, play, and read through the demo project to understand how it all works and functions, including how to use it in your own app.
