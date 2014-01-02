@@ -1,13 +1,13 @@
 Pod::Spec.new do |s|
   s.name         = 'IMQuickSearch'
-  s.version      = '1.0'
+  s.version      = '0.1'
   s.summary      = 'Filtering your NSArrays of NSObjects like a BOSS.'
   s.author = {
     'Ben Gordon' => 'benjamin.gordon@intermarkgroup.com'
   }
   s.source = {
     :git => 'https://github.com/Intermark/IMQuickSearch.git',
-    :tag => '1.0'
+    :tag => '0.1'
   }
   s.homepage    = 'http:/github.com/Intermark'
   s.license     = 'License'
