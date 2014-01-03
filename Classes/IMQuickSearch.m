@@ -32,8 +32,11 @@
     // Set Up Filter
     NSMutableSet *filteredSet = [NSMutableSet set];
     
+    // Create copy of array to prevent mutability of filters mid-search
+    NSArray *copyMasterArray = [self.masterArray copy];
+    
     // Filter each object based on value
-    for (IMQuickSearchFilter *quickFilter in self.masterArray) {
+    for (IMQuickSearchFilter *quickFilter in copyMasterArray) {
         [filteredSet addObjectsFromArray:[quickFilter filteredObjectsWithValue:value]];
     }
     
