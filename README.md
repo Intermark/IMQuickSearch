@@ -80,31 +80,31 @@ IMQuickSearchFilter *someFilter;
 
 ## Benchmarks
 
-After some basic tests with the same kind of <code>IMPerson</code>, <code>IMAnimal</code>, and <code>IMNumber</code> objects from the demo project, it appears that this grows linearlly with the growth of the data size. A 10x increase in objects results in a 10x decrease in speed. Here's some results (each set is 1/3 People, 1/3 Animals, 1/3 Numbers):
+After some basic tests with the same kind of <code>IMPerson</code>, <code>IMAnimal</code>, and <code>IMNumber</code> objects from the demo project, it appears that this grows linearlly with the growth of the data size. A 10x increase in objects results in about a 10x decrease in speed. Here's some results (each set is 1/3 People, 1/3 Animals, 1/3 Numbers):
 
 ```
 3000 objects:
-2013-12-30 13:46:32.915 IMQuickSearch[68903:70b] Start
-2013-12-30 13:46:32.932 IMQuickSearch[68903:70b] Stop
+2014-01-06 09:33:49.930 IMQuickSearch[15514:70b] Start
+2014-01-06 09:33:49.947 IMQuickSearch[15514:70b] Stop
 .017s
 
 
 30000 objects:
-2013-12-30 13:48:58.146 IMQuickSearch[68973:70b] Start
-2013-12-30 13:48:58.318 IMQuickSearch[68973:70b] Stop
-.172s
+2014-01-06 09:48:29.178 IMQuickSearch[15589:70b] Start
+2014-01-06 09:48:29.339 IMQuickSearch[15589:70b] Stop
+.161s
 
 
 300000 objects:
-2013-12-30 13:50:01.880 IMQuickSearch[68995:70b] Start
-2013-12-30 13:50:03.488 IMQuickSearch[68995:70b] Stop
-1.608s
+2014-01-06 09:49:21.058 IMQuickSearch[15604:70b] Start
+2014-01-06 09:49:22.601 IMQuickSearch[15604:70b] Stop
+1.543s
 
 
 3000000 objects:
-2013-12-30 13:51:35.259 IMQuickSearch[69024:70b] Start
-2013-12-30 13:51:52.056 IMQuickSearch[69024:70b] Stop
-16.797s
+014-01-06 09:50:00.805 IMQuickSearch[15625:70b] Start
+2014-01-06 09:50:16.580 IMQuickSearch[15625:70b] Stop
+15.775s
 ```
 
 ## Demo Project
