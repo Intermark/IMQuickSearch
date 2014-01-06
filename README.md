@@ -117,4 +117,4 @@ There are tests located inside of the Demo Project to run. In the future, a [Tra
 
 ## License
 
-I think an MIT License will suit this project perfectly, though that is up to the overseers of Intermark to decide before this goes public.
+This repository is licensed under the standard MIT License. You can read the license [here](https://github.com/Intermark/IMQuickSearch/blob/master/License).
