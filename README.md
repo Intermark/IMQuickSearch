@@ -4,6 +4,8 @@
 
 IMQuickSearch is a tool for quickly filtering multiple NSArrays that contain a variety of custom NSObject classes. It takes any value, and is not limited purely by an NSString. You can filter an NSObject by an NSNumber if you so choose. However, since its primary focus is for quickly filtering objects, when you filter by an NSString it performs a contains search - searching for "Bo" returns "Bob" and "Bojangles."
 
+[![Build Status](https://travis-ci.org/Intermark/IMQuickSearch.png)](https://travis-ci.org/Intermark/IMQuickSearch)
+
 ## Installation
 
 All of the important classes are located in the top-level directory <code>Classes</code>. The files you want to copy into your project are:
@@ -113,7 +115,7 @@ Run, play, and read through the demo project to understand how it all works and 
 
 ## Unit Tests
 
-There are tests located inside of the Demo Project to run. In the future, a [Travis-CI](https://www.travis-ci.org) build will be used to guarantee all future commits and pull-requests don't break master.
+There are tests located inside of the Demo Project to run. The library is also tested and run against a [Travis-CI](https://travis-ci.org/Intermark/IMQuickSearch) continuous integration server.
 
 ## License
 
