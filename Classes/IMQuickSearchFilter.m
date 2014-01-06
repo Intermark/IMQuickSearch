@@ -27,25 +27,25 @@
     }
     
     // Set Up
-    NSMutableSet *filteredSet = [NSMutableSet set];
+    NSHashTable *filteredHashTable = [NSHashTable hashTableWithOptions:NSPointerFunctionsStrongMemory];
     
     // Filter for each key
     for (NSString *key in self.keys) {
         for (id obj in self.searchArray) {
             // Continue if it's there already
-            if ([filteredSet containsObject:obj]) {
+            if ([filteredHashTable containsObject:obj]) {
                 continue;
             }
             
-            // Compare Values
+            // Compare values
             if ([self checkObject:obj withValue:value forKey:key]) {
-                [filteredSet addObject:obj];
+                [filteredHashTable addObject:obj];
             }
         }
     }
     
     // Return an array
-    return [filteredSet allObjects];
+    return [filteredHashTable allObjects];
 }
 
 
