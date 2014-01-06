@@ -1,4 +1,4 @@
-![Banner](https://raw.github.com/intermark/IMQuickSearch/master/Images/banner.png)
+![banner](https://raw.github.com/Intermark/IMQuickSearch/master/Images/banner.png)
 
 ## About
 
