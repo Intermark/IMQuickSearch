@@ -17,7 +17,7 @@ Just <code>#import "IMQuickSearch.h"</code> in any class you want to use IMQuick
 
 **Cocoapods**
 
-Cocoapods coming soon.
+<code>pod 'IMQuickSearch', '~> 0.1'</code>
 
 ## Setting Up IMQuickSearch
 
