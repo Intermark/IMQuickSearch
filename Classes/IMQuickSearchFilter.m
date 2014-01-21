@@ -67,7 +67,7 @@
     }
     
     // Check to make sure they are the same type
-    if (![[obj valueForKey:key] isKindOfClass:[value class]]) {
+    if (![value isKindOfClass:[[obj valueForKey:key] class]]) {
         return NO;
     }
     
