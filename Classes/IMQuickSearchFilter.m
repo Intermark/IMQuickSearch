@@ -74,7 +74,12 @@
         return NO;
     }
     
-    // An object must have a property for the key
+    // Make sure the object has a property for that key
+    if (![obj respondsToSelector:NSSelectorFromString(key)]) {
+        return NO;
+    }
+    
+    // Make sure that property is filled
     if (![obj valueForKey:key]) {
         return NO;
     }
