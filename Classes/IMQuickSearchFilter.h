@@ -23,10 +23,6 @@
 
 @interface IMQuickSearchFilter : NSObject
 
-#pragma mark - Properties
-@property (nonatomic, retain) NSArray *searchArray;
-@property (nonatomic, retain) NSArray *keys;
-
 
 #pragma mark - Create Filter
 /**

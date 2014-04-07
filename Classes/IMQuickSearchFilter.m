@@ -21,6 +21,13 @@
 
 #import "IMQuickSearchFilter.h"
 
+@interface IMQuickSearchFilter()
+@property (nonatomic, copy) NSArray *searchArray;
+@property (nonatomic, copy) NSHashTable *lastSearchHashTable;
+@property (nonatomic, copy) NSString *lastSearchValue;
+@property (nonatomic, copy) NSArray *keys;
+@end
+
 @implementation IMQuickSearchFilter
 
 #pragma mark - Create Filter
@@ -41,26 +48,31 @@
     
     // Set Up
     NSHashTable *filteredHashTable = [NSHashTable hashTableWithOptions:NSPointerFunctionsStrongMemory];
+    BOOL shouldUseLastSearch = [value isKindOfClass:[NSString class]] && [self checkString:value withString:self.lastSearchValue];
+    NSArray *searchArray = (self.lastSearchHashTable && shouldUseLastSearch) ? [self.lastSearchHashTable allObjects] : self.searchArray;
     
     // Filter for each key
     for (NSString *key in self.keys) {
-        for (id obj in self.searchArray) {
-            // Continue if it's there already
-            if ([filteredHashTable containsObject:obj]) {
-                continue;
+            for (id obj in searchArray) {
+                // Continue if it's there already
+                if ([filteredHashTable containsObject:obj]) {
+                    continue;
+                }
+                
+                // Compare values
+                if ([self checkObject:obj withValue:value forKey:key]) {
+                    [filteredHashTable addObject:obj];
+                }
             }
-            
-            // Compare values
-            if ([self checkObject:obj withValue:value forKey:key]) {
-                [filteredHashTable addObject:obj];
-            }
-        }
     }
+    
+    // Save
+    self.lastSearchHashTable = filteredHashTable;
+    self.lastSearchValue = value;
     
     // Return an array
     return [filteredHashTable allObjects];
 }
-
 
 #pragma mark - Filtering Sub-Methods
 - (BOOL)checkObject:(id)obj withValue:(id)value forKey:(NSString *)key {
