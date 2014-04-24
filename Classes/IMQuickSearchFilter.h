@@ -42,4 +42,6 @@
  */
 - (NSSet *)filteredObjectsWithValue:(id)value;
 
+- (void)filteredObjectsWithValue:(id)value completion:(void (^)(NSSet *filteredObjects))completion;
+
 @end

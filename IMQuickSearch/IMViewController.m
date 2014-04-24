@@ -22,13 +22,12 @@
 	// Do any additional setup after loading the view, typically from a nib.
     
     // Set up data
-    self.People = [IMPerson arrayOfPeople:200];
-    self.Animals = [IMAnimal arrayOfAnimals:200];
+    self.People = [IMPerson arrayOfPeople:20000];
+    self.Animals = [IMAnimal arrayOfAnimals:20000];
     [self setUpQuickSearch];
     
     // Set Up Filtered Array
     // nil value returns all results
-    self.FilteredResults = [self.QuickSearch filteredObjectsWithValue:nil];
     [self filterResults];
 }
 
@@ -52,7 +51,9 @@
 #pragma mark - Filter the Quick Search
 - (void)filterResults {
     // Asynchronously
+    NSLog(@"S");
     [self.QuickSearch asynchronouslyFilterObjectsWithValue:self.searchTextField.text completion:^(NSArray *filteredResults) {
+        NSLog(@"E");
         [self updateTableViewWithNewResults:filteredResults];
     }];
     

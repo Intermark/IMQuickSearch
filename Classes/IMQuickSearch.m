@@ -21,6 +21,15 @@
 
 #import "IMQuickSearch.h"
 
+typedef void (^FinalResultsCompletion) (NSArray *filteredResults);
+
+@interface IMQuickSearch()
+@property (nonatomic, strong) FinalResultsCompletion completionBlock;
+@property (nonatomic, strong) dispatch_queue_t searchQueue;
+@property (nonatomic, strong) NSMutableSet *searchSet;
+@property (nonatomic, strong) NSMutableArray *completedSearches;
+@end
+
 @implementation IMQuickSearch
 
 #pragma mark - Init
@@ -34,6 +43,8 @@
     if (self = [super init]) {
         self.masterArray = filters;
         self.fuzziness = fuzziness;
+        self.searchSet = [NSMutableSet set];
+        self.searchQueue = dispatch_queue_create("com.imquicksearch.mainSearchQueue", DISPATCH_QUEUE_CONCURRENT);
     }
     
     return self;
@@ -59,13 +70,60 @@
 
 - (void)asynchronouslyFilterObjectsWithValue:(id)value completion:(void (^)(NSArray *filteredResults))completion {
     // Start another thread
+    dispatch_async(self.searchQueue, ^{
+        // Set Up
+        self.completionBlock = completion;
+        self.searchSet = [NSMutableSet set];
+        self.completedSearches = [NSMutableArray array];
+        NSArray *copyMasterArray = [self.masterArray copy];
+        
+        // Start Searching
+        for (IMQuickSearchFilter *filter in copyMasterArray) {
+            [self createThreadAndSearchOverFilter:filter withValue:value];
+        }
+    });
+    
+    /*
+    // Start another thread
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        // Start a blank search set
+        self.searchSet = [NSMutableSet set];
+        
         NSArray *filteredObjects = [self filteredObjectsWithValue:value];
         // Get Main Thread
         dispatch_async(dispatch_get_main_queue(), ^{
             completion(filteredObjects);
         });
     });
+     */
+}
+
+- (void)createThreadAndSearchOverFilter:(IMQuickSearchFilter *)filter withValue:(id)value {
+    // Create thread
+    NSString *queueName = [NSString stringWithFormat:@"com.imquicksearch.%lu.search", (unsigned long)filter.hash];
+    char * queueLabel = NULL;
+    [queueName getCString:queueLabel maxLength:queueName.length encoding:NSUTF8StringEncoding];
+    dispatch_queue_t newSearchThread = dispatch_queue_create(queueLabel, DISPATCH_QUEUE_CONCURRENT);
+    
+    // Search
+    dispatch_async(newSearchThread, ^{
+        [filter filteredObjectsWithValue:value completion:^(NSSet *filteredObjects) {
+            [self completeSearchWithResults:filteredObjects];
+        }];
+    });
+}
+
+- (void)completeSearchWithResults:(NSSet *)results {
+    [self.completedSearches addObject:results];
+    if (self.completedSearches.count == self.masterArray.count) {
+        for (NSSet *set in self.completedSearches) {
+            [self.searchSet unionSet:set];
+        }
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.completionBlock(self.searchSet.allObjects);
+        });
+    }
 }
 
 

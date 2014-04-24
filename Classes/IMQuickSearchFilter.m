@@ -21,20 +21,34 @@
 
 #import "IMQuickSearchFilter.h"
 
+typedef void (^FilterCompletionBlock)(NSSet *filteredObjects);
+
 @interface IMQuickSearchFilter()
 @property (nonatomic, copy) NSSet *searchSet;
 @property (nonatomic, copy) NSSet *lastSearchSet;
 @property (nonatomic, copy) NSString *lastSearchValue;
 @property (nonatomic, copy) NSArray *keys;
+@property (nonatomic) dispatch_queue_t filterThread;
+@property (nonatomic, strong) NSMutableSet *filteredSet;
+@property (nonatomic, strong) FilterCompletionBlock completionBlock;
+@property (nonatomic, strong) NSMutableArray *completedFilters;
+@property (nonatomic, strong) NSMutableArray *allFilterThreads;
 @end
 
 @implementation IMQuickSearchFilter
 
 #pragma mark - Create Filter
 + (IMQuickSearchFilter *)filterWithSearchArray:(NSArray *)searchArray keys:(NSArray *)keys {
+    // Set Up
     IMQuickSearchFilter *newFilter = [[IMQuickSearchFilter alloc] init];
     newFilter.searchSet = [NSSet setWithArray:searchArray];
     newFilter.keys = keys;
+    
+    // Create thread
+    NSString *queueName = [NSString stringWithFormat:@"com.imquicksearch.%lu", (unsigned long)newFilter.hash];
+    char * queueLabel = NULL;
+    [queueName getCString:queueLabel maxLength:queueName.length encoding:NSUTF8StringEncoding];
+    newFilter.filterThread = dispatch_queue_create(queueLabel, DISPATCH_QUEUE_CONCURRENT);
     
     return newFilter;
 }
@@ -73,6 +87,73 @@
     // Return an array
     return filteredSet;
 }
+
+- (void)filteredObjectsWithValue:(id)value completion:(FilterCompletionBlock)completion {
+    // Set Completion Block
+    self.completionBlock = completion;
+    
+    // If no value, return all results
+    if (!value) {
+        completion(self.searchSet);
+    }
+    
+    // Set Up
+    self.filteredSet = [NSMutableSet new];
+    BOOL shouldUseLastSearch = [value isKindOfClass:[NSString class]] && [self checkString:value withString:self.lastSearchValue];
+    NSSet *newSearchSet = (self.lastSearchSet && shouldUseLastSearch) ? self.lastSearchSet : self.searchSet;
+    self.completedFilters = [NSMutableArray array];
+    
+    // Filter for each key
+    dispatch_async(self.filterThread, ^{
+        for (NSString *key in self.keys) {
+            [self createAndRunNewFilterThreadForKey:key searchSet:newSearchSet value:value];
+        }
+    });
+}
+
+- (void)createAndRunNewFilterThreadForKey:(NSString *)key searchSet:(NSSet *)searchSet value:(id)value {
+    // Create Thread
+    NSString *queueName = [NSString stringWithFormat:@"com.imquicksearch.%lu", key.hash];
+    char * queueLabel = NULL;
+    [queueName getCString:queueLabel maxLength:queueName.length encoding:NSUTF8StringEncoding];
+    dispatch_queue_t newQueue = dispatch_queue_create(queueLabel, DISPATCH_QUEUE_CONCURRENT);
+    [self.allFilterThreads addObject:queueName];
+    
+    // Filter
+    dispatch_async(newQueue, ^{
+        NSMutableSet *results = [NSMutableSet set];
+        
+        // Filter
+        for (id obj in searchSet) {
+            // Continue if it's there already
+            if ([results containsObject:obj]) {
+                continue;
+            }
+            
+            // Compare values
+            if ([self checkObject:obj withValue:value forKey:key]) {
+                [results addObject:obj];
+            }
+        }
+        
+        // Go back to Filter Thread
+        dispatch_async(self.filterThread, ^{
+            [self completeFilterWithName:queueName filteredSet:results];
+        });
+    });
+}
+
+- (void)completeFilterWithName:(NSString *)name filteredSet:(NSMutableSet *)filteredSet {
+    [self.completedFilters addObject:filteredSet];
+    if (self.completedFilters.count == self.keys.count) {
+        for (NSSet *set in self.completedFilters) {
+            [self.filteredSet unionSet:set];
+        }
+        
+        self.completionBlock(self.filteredSet);
+    }
+}
+
 
 #pragma mark - Filtering Sub-Methods
 - (BOOL)checkObject:(id)obj withValue:(id)value forKey:(NSString *)key {
