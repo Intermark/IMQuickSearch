@@ -32,9 +32,9 @@
 - (void)setUp
 {
     [super setUp];
-    self.People = [IMPerson arrayOfPeople:1000];
-    self.Animals = [IMAnimal arrayOfAnimals:1000];
-    self.Numbers = [IMNumber arrayOfNumbers:1000];
+    self.People = [IMPerson arrayOfPeople:33000];
+    self.Animals = [IMAnimal arrayOfAnimals:33000];
+    self.Numbers = [IMNumber arrayOfNumbers:33000];
     [self setUpQuickSearch];
 }
 

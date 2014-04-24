@@ -38,8 +38,8 @@
 /**
  Filters the array for each key based on the input value parameter.
  @param value
- @returns NSArray
+ @returns NSSet
  */
-- (NSArray *)filteredObjectsWithValue:(id)value;
+- (NSSet *)filteredObjectsWithValue:(id)value;
 
 @end

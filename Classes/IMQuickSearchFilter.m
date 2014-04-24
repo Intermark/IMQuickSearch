@@ -22,8 +22,8 @@
 #import "IMQuickSearchFilter.h"
 
 @interface IMQuickSearchFilter()
-@property (nonatomic, copy) NSArray *searchArray;
-@property (nonatomic, copy) NSHashTable *lastSearchHashTable;
+@property (nonatomic, copy) NSSet *searchSet;
+@property (nonatomic, copy) NSSet *lastSearchSet;
 @property (nonatomic, copy) NSString *lastSearchValue;
 @property (nonatomic, copy) NSArray *keys;
 @end
@@ -33,45 +33,45 @@
 #pragma mark - Create Filter
 + (IMQuickSearchFilter *)filterWithSearchArray:(NSArray *)searchArray keys:(NSArray *)keys {
     IMQuickSearchFilter *newFilter = [[IMQuickSearchFilter alloc] init];
-    newFilter.searchArray = searchArray;
+    newFilter.searchSet = [NSSet setWithArray:searchArray];
     newFilter.keys = keys;
     
     return newFilter;
 }
 
 #pragma mark - Filter With Value
-- (NSArray *)filteredObjectsWithValue:(id)value {
+- (NSSet *)filteredObjectsWithValue:(id)value {
     // If no value, return all results
     if (!value) {
-        return self.searchArray;
+        return self.searchSet;
     }
     
     // Set Up
-    NSHashTable *filteredHashTable = [NSHashTable hashTableWithOptions:NSPointerFunctionsStrongMemory];
+    NSMutableSet *filteredSet = [NSMutableSet new];
     BOOL shouldUseLastSearch = [value isKindOfClass:[NSString class]] && [self checkString:value withString:self.lastSearchValue];
-    NSArray *searchArray = (self.lastSearchHashTable && shouldUseLastSearch) ? [self.lastSearchHashTable allObjects] : self.searchArray;
+    NSSet *newSearchSet = (self.lastSearchSet && shouldUseLastSearch) ? self.lastSearchSet : self.searchSet;
     
     // Filter for each key
     for (NSString *key in self.keys) {
-            for (id obj in searchArray) {
-                // Continue if it's there already
-                if ([filteredHashTable containsObject:obj]) {
-                    continue;
-                }
-                
-                // Compare values
-                if ([self checkObject:obj withValue:value forKey:key]) {
-                    [filteredHashTable addObject:obj];
-                }
+        for (id obj in newSearchSet) {
+            // Continue if it's there already
+            if ([filteredSet containsObject:obj]) {
+                continue;
             }
+            
+            // Compare values
+            if ([self checkObject:obj withValue:value forKey:key]) {
+                [filteredSet addObject:obj];
+            }
+        }
     }
     
     // Save
-    self.lastSearchHashTable = filteredHashTable;
+    self.lastSearchSet = filteredSet;
     self.lastSearchValue = value;
     
     // Return an array
-    return [filteredHashTable allObjects];
+    return filteredSet;
 }
 
 #pragma mark - Filtering Sub-Methods

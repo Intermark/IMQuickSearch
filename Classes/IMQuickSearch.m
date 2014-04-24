@@ -50,7 +50,7 @@
     
     // Filter each object based on value
     for (IMQuickSearchFilter *quickFilter in copyMasterArray) {
-        [filteredSet addObjectsFromArray:[quickFilter filteredObjectsWithValue:value]];
+        [filteredSet unionSet:[quickFilter filteredObjectsWithValue:value]];
     }
     
     // Return array from set
