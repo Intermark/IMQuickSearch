@@ -25,7 +25,7 @@ typedef void (^FinalResultsCompletion) (NSArray *filteredResults);
 
 @interface IMQuickSearch()
 @property (nonatomic, strong) FinalResultsCompletion completionBlock;
-@property (nonatomic, strong) dispatch_queue_t searchQueue;
+@property (nonatomic) dispatch_queue_t searchQueue;
 @property (nonatomic, strong) NSMutableSet *searchSet;
 @property (nonatomic, strong) NSMutableArray *completedSearches;
 @end

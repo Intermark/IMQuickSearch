@@ -42,6 +42,12 @@
  */
 - (NSSet *)filteredObjectsWithValue:(id)value;
 
+/**
+ *  Filters the array in parallel for all keys, then returns the set of objects in the completion block.
+ *
+ *  @param value
+ *  @param completion NSSet
+ */
 - (void)filteredObjectsWithValue:(id)value completion:(void (^)(NSSet *filteredObjects))completion;
 
 @end

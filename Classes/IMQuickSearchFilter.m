@@ -32,7 +32,6 @@ typedef void (^FilterCompletionBlock)(NSSet *filteredObjects);
 @property (nonatomic, strong) NSMutableSet *filteredSet;
 @property (nonatomic, strong) FilterCompletionBlock completionBlock;
 @property (nonatomic, strong) NSMutableArray *completedFilters;
-@property (nonatomic, strong) NSMutableArray *allFilterThreads;
 @end
 
 @implementation IMQuickSearchFilter
@@ -117,7 +116,6 @@ typedef void (^FilterCompletionBlock)(NSSet *filteredObjects);
     char * queueLabel = NULL;
     [queueName getCString:queueLabel maxLength:queueName.length encoding:NSUTF8StringEncoding];
     dispatch_queue_t newQueue = dispatch_queue_create(queueLabel, DISPATCH_QUEUE_CONCURRENT);
-    [self.allFilterThreads addObject:queueName];
     
     // Filter
     dispatch_async(newQueue, ^{
