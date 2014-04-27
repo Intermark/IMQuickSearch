@@ -100,7 +100,7 @@ typedef void (^FinalResultsCompletion) (NSArray *filteredResults);
 
 - (void)createThreadAndSearchOverFilter:(IMQuickSearchFilter *)filter withValue:(id)value {
     // Create thread
-    NSString *queueName = [NSString stringWithFormat:@"com.imquicksearch.%lu.search", (unsigned long)filter.hash];
+    NSString *queueName = [NSString stringWithFormat:@"com.imquicksearch.%@.search", [NSUUID UUID]];
     char * queueLabel = NULL;
     [queueName getCString:queueLabel maxLength:queueName.length encoding:NSUTF8StringEncoding];
     dispatch_queue_t newSearchThread = dispatch_queue_create(queueLabel, DISPATCH_QUEUE_CONCURRENT);

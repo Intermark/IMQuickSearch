@@ -44,7 +44,7 @@ typedef void (^FilterCompletionBlock)(NSSet *filteredObjects);
     newFilter.keys = keys;
     
     // Create thread
-    NSString *queueName = [NSString stringWithFormat:@"com.imquicksearch.%lu", (unsigned long)newFilter.hash];
+    NSString *queueName = [NSString stringWithFormat:@"com.imquicksearch.%@", [NSUUID UUID]];
     char * queueLabel = NULL;
     [queueName getCString:queueLabel maxLength:queueName.length encoding:NSUTF8StringEncoding];
     newFilter.filterThread = dispatch_queue_create(queueLabel, DISPATCH_QUEUE_CONCURRENT);
@@ -98,21 +98,19 @@ typedef void (^FilterCompletionBlock)(NSSet *filteredObjects);
     
     // Set Up
     self.filteredSet = [NSMutableSet new];
-    BOOL shouldUseLastSearch = [value isKindOfClass:[NSString class]] && [self checkString:value withString:self.lastSearchValue];
-    NSSet *newSearchSet = (self.lastSearchSet && shouldUseLastSearch) ? self.lastSearchSet : self.searchSet;
     self.completedFilters = [NSMutableArray array];
     
     // Filter for each key
     dispatch_async(self.filterThread, ^{
         for (NSString *key in self.keys) {
-            [self createAndRunNewFilterThreadForKey:key searchSet:newSearchSet value:value];
+            [self createAndRunNewFilterThreadForKey:key searchSet:self.searchSet value:value];
         }
     });
 }
 
 - (void)createAndRunNewFilterThreadForKey:(NSString *)key searchSet:(NSSet *)searchSet value:(id)value {
     // Create Thread
-    NSString *queueName = [NSString stringWithFormat:@"com.imquicksearch.%lu", key.hash];
+    NSString *queueName = [NSString stringWithFormat:@"com.imquicksearch.%@", [NSUUID UUID]];
     char * queueLabel = NULL;
     [queueName getCString:queueLabel maxLength:queueName.length encoding:NSUTF8StringEncoding];
     dispatch_queue_t newQueue = dispatch_queue_create(queueLabel, DISPATCH_QUEUE_CONCURRENT);
