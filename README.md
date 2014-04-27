@@ -2,22 +2,22 @@
 
 ## About
 
-IMQuickSearch is a tool for quickly filtering multiple NSArrays that contain a variety of custom NSObject classes. It takes any value, and is not limited purely by an NSString. You can filter an NSObject by an NSNumber if you so choose. However, since its primary focus is for quickly filtering objects, when you filter by an NSString it performs a contains search - searching for "Bo" returns "Bob" and "Bojangles."
+IMQuickSearch is a tool for quickly filtering multiple NSArrays that contain a variety of custom NSObject classes. It takes any value, and is not limited purely by an NSString. You can filter an NSObject by an NSNumber if you so choose. However, since its primary focus is for quickly filtering objects, when you filter by an NSString it performs a contains search - searching for "Bo" returns "Bob," "Probowl" and "Bojangles."
 
 [![Build Status](https://travis-ci.org/Intermark/IMQuickSearch.png)](https://travis-ci.org/Intermark/IMQuickSearch)
 
 ## Installation
 
-All of the important classes are located in the top-level directory <code>Classes</code>. The files you want to copy into your project are:
+All of the important classes are located in the top-level directory `Classes`. The files you want to copy into your project are:
 
-* <code>IMQuickSearch.{h,m}</code>
-* <code>IMQuickSearchFilter.{h,m}</code>
+* `IMQuickSearch.{h,m}`
+* `IMQuickSearchFilter.{h,m}`
 
-Just <code>#import "IMQuickSearch.h"</code> in any class you want to use IMQuickSearch in.
+Just `#import "IMQuickSearch.h"` in any class you want to use IMQuickSearch in.
 
 **Cocoapods**
 
-<code>pod 'IMQuickSearch', '~> 0.2'</code>
+`pod 'IMQuickSearch'`
 
 ## Setting Up IMQuickSearch
 
@@ -27,7 +27,7 @@ To begin, you are going to want to have your NSArrays of NSObjects already popul
 IMQuickSearchFilter *peopleFilter = [IMQuickSearchFilter filterWithSearchArray:self.People keys:@[@"firstName",@"lastName"]];
 IMQuickSearchFilter *animalFilter = [IMQuickSearchFilter filterWithSearchArray:self.Animals keys:@[@"name"]];
 ```
-So here I just created two filters, one for an array of people and one for an array of animals. The keys parameter corresponds directly to properties on the objects inside of each array. For instance, I have a Person object with a <code>firstName</code> and a <code>lastName</code> property, hence the two keys I added to the first filter. You don't have to add all of the properties to the keys array; just add the ones you want to filter by.
+So here I just created two filters, one for an array of people and one for an array of animals. The keys parameter corresponds directly to properties on the objects inside of each array. For instance, I have a Person object with a `firstName` and a `lastName` property, hence the two keys I added to the first filter. You don't have to add all of the properties to the keys array; just add the ones you want to filter by.
 
 Next you are going to initialize your IMQuickSearch master object with the two filters you created:
 
@@ -45,11 +45,11 @@ Searching through your arrays could not be easier. There is but one method call 
 NSArray *filteredResults = [self.QuickSearch filteredObjectsWithValue:(id)someValue];
 ```
 
-Filtering with NSStrings will probably be the most common use case, but you can filter by other class types as well. NSString filtering runs a comparison search over the property, resulting in fast filtering by strings. Any other value runs an equals search over the property matching value types exactly. For instance, if you are searching an NSNumber property with a value of <code>@4</code> then only properties that match will be returned, not a property whose value is <code>@40</code>.
+Filtering with NSStrings will probably be the most common use case, but you can filter by other class types as well. NSString filtering runs a comparison search over the property, resulting in fast filtering by strings. Any other value runs an equals search over the property matching value types exactly. For instance, if you are searching an NSNumber property with a value of `@4` then only properties that match will be returned, not a property whose value is `@40`.
 
 **Asyncronously Searching**
 
-The main <code>filteredObjectsWithValue:</code> method searches the objects synchronously, on the main thread. However, if your data set is fairly large, you may want to move this work to a background thread so as not to disrupt or freeze the UI. You can do this with the following method:
+The main `filteredObjectsWithValue:` method searches the objects synchronously, on the main thread. However, if your data set is fairly large, you may want to move this work to a background thread so as not to disrupt or freeze the UI. You can do this with the following method:
 
 ```objc
 __block NSArray *results;
@@ -62,8 +62,8 @@ __block NSArray *results;
 ```
 
 **Extras**
-* Filtering by <code>@""</code> returns ALL objects with NSString properties
-* Filtering by <code>nil</code> returns ALL objects
+* Filtering by `@""` returns ALL objects with NSString properties
+* Filtering by `nil` returns ALL objects
 * IMQuickSearch returns UNIQUE results.
 
 **Manipulating Filters on the fly**
@@ -80,9 +80,21 @@ IMQuickSearchFilter *someFilter;
 [self.QuickSearch removeFilter:someFilter];
 ```
 
+## What IMQuickSearch CAN'T Do
+
+This library's great, but it does have some short-comings. Here they are:
+
+**No recursive object graph searching.**
+
+Basically this means that if you have a `Family` object that has an array of `Person` objects, and each `Person` object has a `firstName` property - you can't filter over a list of families for a person that has a firstName like what you're searching for. It doesn't go down the object graph looking for keys, only top-level object properties work. However arrays work for base checks. If you have an `NSArray` of `NSStrings` it will traverse the array seeing if one of the strings match to return `YES/NO` to.
+
+**No saving the world.**
+
+Unfortunately, this library cannot save the world if dire conditions arise. Though we are open to pull requests.
+
 ## Benchmarks
 
-After some basic tests with the same kind of <code>IMPerson</code>, <code>IMAnimal</code>, and <code>IMNumber</code> objects from the demo project, it appears that this grows linearlly with the growth of the data size. A 10x increase in objects results in about a 10x decrease in speed. Here's some results (each set is 1/3 People, 1/3 Animals, 1/3 Numbers):
+After some basic tests with the same kind of `IMPerson`, `IMAnimal`, and `IMNumber` objects from the demo project, it appears that this grows linearlly with the growth of the data size. A 10x increase in objects results in about a 10x decrease in speed. Here's some results (each set is 1/3 People, 1/3 Animals, 1/3 Numbers):
 
 ```
 3000 objects:
