@@ -88,6 +88,10 @@ This library's great, but it does have some short-comings. Here they are:
 
 Basically this means that if you have a `Family` object that has an array of `Person` objects, and each `Person` object has a `firstName` property - you can't filter over a list of families for a person that has a firstName like what you're searching for. It doesn't go down the object graph looking for keys, only top-level object properties work. However arrays work for base checks. If you have an `NSArray` of `NSStrings` it will traverse the array seeing if one of the strings match to return `YES/NO` to.
 
+**No parallel searching.**
+
+Right now, each IMQuickSearchFilter is searched serially, and then a union set is made at the end. For each filter, the set of keys is done the exact same way. Theoretically it would be faster to do everything in parallel. Theoretically... Right now if you take a peek at the [`multithreaded` branch](https://github.com/Intermark/IMQuickSearch/tree/multithreaded) you can see my attempt at doing this. The quick benchmarks show that doing it serially actually takes only 72% of the time doing it concurrently does. Which is wacky. Since this is bad, it's not ready for production use, but we still think doing it this way has merit if done right. The problems may have to do with more and heavier instantiations done concurrently to manage this instead of the lightweight serial method.
+
 **No saving the world.**
 
 Unfortunately, this library cannot save the world if dire conditions arise. Though we are open to pull requests.
