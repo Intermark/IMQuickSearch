@@ -50,15 +50,15 @@
     if ([value isKindOfClass:[NSString class]] && [(NSString *)value length] == 0) {
         return self.searchSet;
     }
-
+    
     // Set Up
     BOOL shouldUseLastSearch = [value isKindOfClass:[NSString class]] && [self checkString:value withString:self.lastSearchValue];
     NSSet *newSearchSet = (self.lastSearchSet && shouldUseLastSearch) ? self.lastSearchSet : self.searchSet;
     
     // Create Predicate
-    NSCompoundPredicate *predicate = [self predicateForKeys:self.keys value:value];
+    NSPredicate *predicate = [self predicateForKeys:self.keys value:value];
     NSSet *filteredSet = [newSearchSet filteredSetUsingPredicate:predicate];
-
+    
     // Save
     self.lastSearchSet = filteredSet;
     self.lastSearchValue = value;
@@ -68,7 +68,7 @@
 }
 
 #pragma mark - Build Predicate
-- (NSCompoundPredicate *)predicateForKeys:(NSArray *)keys value:(id)value {
+- (NSPredicate *)predicateForKeys:(NSArray *)keys value:(id)value {
     // No keys, no value, return nil
     if (!keys || !value) return nil;
     
@@ -78,14 +78,15 @@
         // Next if key is not a string
         if (![key isKindOfClass:[NSString class]]) continue;
         // Create predicate
-        NSPredicate *predicate = [value isKindOfClass:[NSString class]] ? [NSPredicate predicateWithFormat:@"(%K.description CONTAINS[cd] %@)", key, value] : [NSPredicate predicateWithFormat:@"(%K.description == %@)", key, value];
-        [predicates addObject:predicate];
+        NSPredicate *existsPredicate = [NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
+            return [evaluatedObject respondsToSelector:NSSelectorFromString(key)];
+        }];
+        NSPredicate *containsPredicate = [value isKindOfClass:[NSString class]] ? [NSPredicate predicateWithFormat:@"(%K.description CONTAINS[cd] %@)", key, value] : [NSPredicate predicateWithFormat:@"(%K.description == %@)", key, value];
+        [predicates addObject:[NSCompoundPredicate andPredicateWithSubpredicates:@[existsPredicate,containsPredicate]]];
     }
     
-    // Build Compound Predicate
-    return [[NSCompoundPredicate alloc] initWithType:NSOrPredicateType subpredicates:predicates];
+    return [NSCompoundPredicate orPredicateWithSubpredicates:predicates];
 }
-
 
 #pragma mark - Check if Substring
 - (BOOL)checkString:(NSString *)mainString withString:(NSString *)searchString {
