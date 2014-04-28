@@ -46,26 +46,19 @@
         return self.searchSet;
     }
     
+    // If value is a string and length == 0, return all results
+    if ([value isKindOfClass:[NSString class]] && [(NSString *)value length] == 0) {
+        return self.searchSet;
+    }
+
     // Set Up
-    NSMutableSet *filteredSet = [NSMutableSet new];
     BOOL shouldUseLastSearch = [value isKindOfClass:[NSString class]] && [self checkString:value withString:self.lastSearchValue];
     NSSet *newSearchSet = (self.lastSearchSet && shouldUseLastSearch) ? self.lastSearchSet : self.searchSet;
     
-    // Filter for each key
-    for (NSString *key in self.keys) {
-        for (id obj in newSearchSet) {
-            // Continue if it's there already
-            if ([filteredSet containsObject:obj]) {
-                continue;
-            }
-            
-            // Compare values
-            if ([self checkObject:obj withValue:value forKey:key]) {
-                [filteredSet addObject:obj];
-            }
-        }
-    }
-    
+    // Create Predicate
+    NSCompoundPredicate *predicate = [self predicateForKeys:self.keys value:value];
+    NSSet *filteredSet = [newSearchSet filteredSetUsingPredicate:predicate];
+
     // Save
     self.lastSearchSet = filteredSet;
     self.lastSearchValue = value;
@@ -74,55 +67,27 @@
     return filteredSet;
 }
 
-#pragma mark - Filtering Sub-Methods
-- (BOOL)checkObject:(id)obj withValue:(id)value forKey:(NSString *)key {
-    // Nil value returns the entire array
-    if (!value) {
-        return YES;
+#pragma mark - Build Predicate
+- (NSCompoundPredicate *)predicateForKeys:(NSArray *)keys value:(id)value {
+    // No keys, no value, return nil
+    if (!keys || !value) return nil;
+    
+    // Build Predicates
+    NSMutableArray *predicates = [NSMutableArray array];
+    for (NSString *key in keys) {
+        // Next if key is not a string
+        if (![key isKindOfClass:[NSString class]]) continue;
+        // Create predicate
+        NSPredicate *predicate = [value isKindOfClass:[NSString class]] ? [NSPredicate predicateWithFormat:@"(%K.description CONTAINS[cd] %@)", key, value] : [NSPredicate predicateWithFormat:@"(%K.description == %@)", key, value];
+        [predicates addObject:predicate];
     }
     
-    // The other 2 parameters must be here
-    if (!obj || !key) {
-        return NO;
-    }
-    
-    // Make sure the object has a property for that key
-    if (![obj respondsToSelector:NSSelectorFromString(key)]) {
-        return NO;
-    }
-    
-    // Make sure that property is filled
-    if (![obj valueForKey:key]) {
-        return NO;
-    }
-    
-    // If it's an NSArray, loop through
-    if ([[obj valueForKey:key] isKindOfClass:[NSArray class]]) {
-        for (id arrObject in [obj valueForKey:key]) {
-            if ([arrObject isKindOfClass:[NSString class]] || [value isKindOfClass:[NSString class]]) {
-                if ([self checkString:arrObject withString:value]) {
-                    return YES;
-                }
-            }
-        }
-        
-        return NO;
-    }
-    
-    // Check to make sure they are the same type
-    if (![value isKindOfClass:[[obj valueForKey:key] class]] && ![[obj valueForKey:key] isKindOfClass:[value class]]) {
-        return NO;
-    }
-    
-    // If it's an NSString, check a case-insensitive compare
-    if ([[obj valueForKey:key] isKindOfClass:[NSString class]]) {
-        return [self checkString:[obj valueForKey:key] withString:value];
-    }
-    
-    // Finally check if they are equal if it is not an NSString
-    return [[obj valueForKey:key] isEqual:value];
+    // Build Compound Predicate
+    return [[NSCompoundPredicate alloc] initWithType:NSOrPredicateType subpredicates:predicates];
 }
 
+
+#pragma mark - Check if Substring
 - (BOOL)checkString:(NSString *)mainString withString:(NSString *)searchString {
     // All strings contain a @"" string, so return YES
     if (searchString.length == 0) {

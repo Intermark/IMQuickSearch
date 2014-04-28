@@ -113,9 +113,9 @@
     XCTAssertEqualObjects(@(filteredResults.count), @(0), @"%s Failed.", __PRETTY_FUNCTION__);
 }
 
-- (void)testBlankStringReturnsAllStringValues {
+- (void)testBlankStringReturnsAllValues {
     NSArray *filteredResults = [self.QuickSearch filteredObjectsWithValue:@""];
-    XCTAssertEqualObjects(@(filteredResults.count), @(self.People.count + self.Animals.count), @"%s Failed.", __PRETTY_FUNCTION__);
+    XCTAssertEqualObjects(@(filteredResults.count), @(self.People.count + self.Animals.count + self.Numbers.count), @"%s Failed.", __PRETTY_FUNCTION__);
 }
 
 - (void)testNilFilterReturnsAllArrayValues {
