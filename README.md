@@ -133,31 +133,31 @@ Unfortunately, this library cannot save the world if dire conditions arise. Thou
 
 ## Benchmarks
 
-After some basic tests with the same kind of `IMPerson`, `IMAnimal`, and `IMNumber` objects from the demo project, it appears that this grows linearlly with the growth of the data size. A 10x increase in objects results in about a 10x decrease in speed. Here's some results (each set is 1/3 People, 1/3 Animals, 1/3 Numbers):
+After some basic tests with the same kind of `IMPerson` and `IMAnimal` objects from the demo project, it appears that this grows linearlly with the growth of the data size. A 10x increase in objects results in about a 10x decrease in speed. This result changes at the 2,000,000 object mark below in the tests. It may be because of hitting system resource limits that it cannot handle this number of objects. Here's the quick and dirty results (each set is 1/2 People, 1/2 Animals):
 
 ```
-3000 objects:
-2014-01-06 09:33:49.930 IMQuickSearch[15514:70b] Start
-2014-01-06 09:33:49.947 IMQuickSearch[15514:70b] Stop
-.017s
+2000 objects:
+2014-04-28 08:30:48.959 IMQuickSearch[27573:60b] Start
+2014-04-28 08:30:48.965 IMQuickSearch[27573:60b] Stop
+.006s
 
 
-30000 objects:
-2014-01-06 09:48:29.178 IMQuickSearch[15589:70b] Start
-2014-01-06 09:48:29.339 IMQuickSearch[15589:70b] Stop
-.161s
+20000 objects:
+2014-04-28 08:32:32.471 IMQuickSearch[27656:60b] Start
+2014-04-28 08:32:32.520 IMQuickSearch[27656:60b] Stop
+.049s
 
 
-300000 objects:
-2014-01-06 09:49:21.058 IMQuickSearch[15604:70b] Start
-2014-01-06 09:49:22.601 IMQuickSearch[15604:70b] Stop
-1.543s
+200000 objects:
+2014-04-28 08:33:07.864 IMQuickSearch[27696:60b] Start
+2014-04-28 08:33:08.373 IMQuickSearch[27696:60b] Stop
+0.509s
 
 
-3000000 objects:
-014-01-06 09:50:00.805 IMQuickSearch[15625:70b] Start
-2014-01-06 09:50:16.580 IMQuickSearch[15625:70b] Stop
-15.775s
+2000000 objects:
+2014-04-28 08:34:37.707 IMQuickSearch[27728:60b] Start
+2014-04-28 08:34:55.434 IMQuickSearch[27728:60b] Stop
+17.727s
 ```
 
 ## Demo Project
