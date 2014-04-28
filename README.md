@@ -6,6 +6,8 @@ IMQuickSearch is a tool for quickly filtering multiple NSArrays that contain a v
 
 [![Build Status](https://travis-ci.org/Intermark/IMQuickSearch.png)](https://travis-ci.org/Intermark/IMQuickSearch)
 
+![Demo](Images/Demo.gif)
+
 ## Installation
 
 All of the important classes are located in the top-level directory `Classes`. The files you want to copy into your project are:
