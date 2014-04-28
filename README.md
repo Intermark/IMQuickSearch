@@ -73,7 +73,7 @@ Searching through your arrays could not be easier. There is but one method call 
 ```objc
 NSArray *filteredResults = [self.QuickSearch filteredObjectsWithValue:@"al"];
 
-// filteredResult = @[p2,a1];
+// filteredResults = @[p2,a1];
 ```
 
 Filtering with NSStrings will probably be the most common use case, but you can filter by other class types as well. NSString filtering runs a comparison search over the property, resulting in fast filtering by strings. Any other value runs an equals search over the property matching value types exactly. For instance, if you are searching an NSNumber property with a value of `@4` then only properties that match will be returned, not a property whose value is `@40`.
