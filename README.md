@@ -160,6 +160,30 @@ After some basic tests with the same kind of `IMPerson` and `IMAnimal` objects f
 17.727s
 ```
 
+Now, let's benchmark against subsequent searches. This is using the same 20,000 object data set (1/2 people, 1/2 animals). Because we're keeping the last search set around, and the idea that a subsequent search is contained by the last set, we don't have to use the master list of objects every time - only when the previous set won't contain the newest search set. Here's these benchmarks.
+
+```
+Value: @"a"
+2014-04-28 08:38:23.575 IMQuickSearch[27953:60b] Start
+2014-04-28 08:38:23.621 IMQuickSearch[27953:60b] Stop
+0.046s
+
+Value: @"al"
+2014-04-28 08:38:25.497 IMQuickSearch[27953:60b] Start
+2014-04-28 08:38:25.533 IMQuickSearch[27953:60b] Stop
+0.036s
+
+Value: @"ali"
+2014-04-28 08:38:26.645 IMQuickSearch[27953:60b] Start
+2014-04-28 08:38:26.655 IMQuickSearch[27953:60b] Stop
+0.010s
+
+Value: @"alig"
+2014-04-28 08:40:39.194 IMQuickSearch[27953:60b] Start
+2014-04-28 08:40:39.196 IMQuickSearch[27953:60b] Stop
+0.002s
+```
+
 ## Demo Project
 
 Run, play, and read through the demo project to understand how it all works and functions, including how to use it in your own app.
