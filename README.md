@@ -24,8 +24,37 @@ Just `#import "IMQuickSearch.h"` in any class you want to use IMQuickSearch in.
 To begin, you are going to want to have your NSArrays of NSObjects already populated and at your disposal. From here, you're going to create your IMQuickSearchFilter objects like so:
 
 ```objc
-IMQuickSearchFilter *peopleFilter = [IMQuickSearchFilter filterWithSearchArray:self.People keys:@[@"firstName",@"lastName"]];
-IMQuickSearchFilter *animalFilter = [IMQuickSearchFilter filterWithSearchArray:self.Animals keys:@[@"name"]];
+// Create People
+IMPerson *p1 = ({
+    IMPerson *p = [IMPerson new];
+    p.firstName = @"Bob";
+    p.LastName = @"Williams";
+    p;
+});
+
+IMPerson *p2 = ({
+    IMPerson *p = [IMPerson new];
+    p.firstName = @"Alice";
+    p.LastName = @"Johnson";
+    p;
+});
+
+// Create Animals
+IMAnimal *a1 = ({
+    IMAnimal *a = [IMAnimal new];
+    a.name = @"Aligator";
+    a;
+});
+
+IMAnimal *a2 = ({
+    IMAnimal *a = [IMAnimal new];
+    a.name = @"Bison";
+    a;
+});
+
+// Create Filters
+IMQuickSearchFilter *peopleFilter = [IMQuickSearchFilter filterWithSearchArray:@[p1, p2] keys:@[@"firstName",@"lastName"]];
+IMQuickSearchFilter *animalFilter = [IMQuickSearchFilter filterWithSearchArray:@[a1, a2] keys:@[@"name"]];
 ```
 So here I just created two filters, one for an array of people and one for an array of animals. The keys parameter corresponds directly to properties on the objects inside of each array. For instance, I have a Person object with a `firstName` and a `lastName` property, hence the two keys I added to the first filter. You don't have to add all of the properties to the keys array; just add the ones you want to filter by.
 
@@ -42,7 +71,9 @@ After this, you are ready to search!
 Searching through your arrays could not be easier. There is but one method call to make:
 
 ```objc
-NSArray *filteredResults = [self.QuickSearch filteredObjectsWithValue:(id)someValue];
+NSArray *filteredResults = [self.QuickSearch filteredObjectsWithValue:@"al"];
+
+// filteredResult = @[p2,a1];
 ```
 
 Filtering with NSStrings will probably be the most common use case, but you can filter by other class types as well. NSString filtering runs a comparison search over the property, resulting in fast filtering by strings. Any other value runs an equals search over the property matching value types exactly. For instance, if you are searching an NSNumber property with a value of `@4` then only properties that match will be returned, not a property whose value is `@40`.
