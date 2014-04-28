@@ -76,6 +76,8 @@ NSArray *filteredResults = [self.QuickSearch filteredObjectsWithValue:@"al"];
 // filteredResults = @[p2,a1];
 ```
 
+Here I filtered both arrays from the first example by the value `@"al"` which returned one combined array with the p2 and the a1 object. This is because `p2.firstName == @"Alice"` and `a1.name == @"Aligator"`. The other objects in both arrays don't match the value to be filtered by.
+
 Filtering with NSStrings will probably be the most common use case, but you can filter by other class types as well. NSString filtering runs a comparison search over the property, resulting in fast filtering by strings. Any other value runs an equals search over the property matching value types exactly. For instance, if you are searching an NSNumber property with a value of `@4` then only properties that match will be returned, not a property whose value is `@40`.
 
 **Asyncronously Searching**
