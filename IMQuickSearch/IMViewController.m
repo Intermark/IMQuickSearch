@@ -10,6 +10,10 @@
 #import "IMPerson.h"
 #import "IMAnimal.h"
 
+// Benchmarks
+extern uint64_t dispatch_benchmark(size_t count, void (^block)(void));
+#define kNumberOfObjects 200
+
 @interface IMViewController ()
 
 @end
@@ -22,14 +26,16 @@
 	// Do any additional setup after loading the view, typically from a nib.
     
     // Set up data
-    self.People = [IMPerson arrayOfPeople:2000];
-    self.Animals = [IMAnimal arrayOfAnimals:2000];
+    self.People = [IMPerson arrayOfPeople:kNumberOfObjects/2];
+    self.Animals = [IMAnimal arrayOfAnimals:kNumberOfObjects/2];
     [self setUpQuickSearch];
     
     // Set Up Filtered Array
     // nil value returns all results
     self.FilteredResults = [self.QuickSearch filteredObjectsWithValue:nil];
-    [self filterResults];
+    
+    // Benchmarks
+    [self benchmarkQuickSearch];
 }
 
 - (void)didReceiveMemoryWarning
@@ -51,10 +57,8 @@
 
 #pragma mark - Filter the Quick Search
 - (void)filterResults {
-    // Asynchronously && BENCHMARK TEST
-    NSLog(@"S");
+    // Asynchronously
     [self.QuickSearch asynchronouslyFilterObjectsWithValue:self.searchTextField.text completion:^(NSArray *filteredResults) {
-        NSLog(@"E");
         [self updateTableViewWithNewResults:filteredResults];
     }];
     
@@ -113,5 +117,17 @@
     [self performSelector:@selector(filterResults) withObject:nil afterDelay:0.07];
     return YES;
 }
+
+
+#pragma mark - Benchmark
+- (void)benchmarkQuickSearch {
+    uint64_t t = dispatch_benchmark(10000, ^{
+        @autoreleasepool {
+            [self.QuickSearch filteredObjectsWithValue:@"al"];
+        }
+    });
+    NSLog(@"IMQuickSearch - %d objects - Avg. Runtime: %llu ns", kNumberOfObjects, t);
+}
+
 
 @end

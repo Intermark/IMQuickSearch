@@ -133,34 +133,17 @@ Unfortunately, this library cannot save the world if dire conditions arise. Thou
 
 ## Benchmarks
 
-After some basic tests with the same kind of `IMPerson` and `IMAnimal` objects from the demo project, it appears that this grows linearlly with the growth of the data size. A 10x increase in objects results in about a 10x decrease in speed. This result changes at the 2,000,000 object mark below in the tests. It may be because of hitting system resource limits that it cannot handle this number of objects. Here's the quick and dirty results (each set is 1/2 People, 1/2 Animals):
+After some basic tests with the same kind of `IMPerson` and `IMAnimal` objects from the demo project, it appears that this grows linearlly with the growth of the data size. A 10x increase in objects results in about a 10x decrease in speed. Here's the quick and dirty results (each set is 1/2 People, 1/2 Animals):
 
 ```
-2000 objects:
-2014-04-28 08:30:48.959 IMQuickSearch[27573:60b] Start
-2014-04-28 08:30:48.965 IMQuickSearch[27573:60b] Stop
-.006s
+iPhone 5C
 
-
-20000 objects:
-2014-04-28 08:32:32.471 IMQuickSearch[27656:60b] Start
-2014-04-28 08:32:32.520 IMQuickSearch[27656:60b] Stop
-.049s
-
-
-200000 objects:
-2014-04-28 08:33:07.864 IMQuickSearch[27696:60b] Start
-2014-04-28 08:33:08.373 IMQuickSearch[27696:60b] Stop
-0.509s
-
-
-2000000 objects:
-2014-04-28 08:34:37.707 IMQuickSearch[27728:60b] Start
-2014-04-28 08:34:55.434 IMQuickSearch[27728:60b] Stop
-17.727s
+200    objects - Avg. Runtime:     944661 ns    (0.0009 s)
+2000   objects - Avg. Runtime:    6899177 ns    (0.0069 s)
+20000  objects - Avg. Runtime:   79806582 ns    (0.08 s)
 ```
 
-Now, let's benchmark against subsequent searches. This is using the same 20,000 object data set (1/2 people, 1/2 animals). Because we're keeping the last search set around, and the idea that a subsequent search is contained by the last set, we don't have to use the master list of objects every time - only when the previous set won't contain the newest search set. Here's these benchmarks.
+Now, let's benchmark against subsequent searches. This is using the same 2000 object data set (1/2 people, 1/2 animals). Because we're keeping the last search set around, and the idea that a subsequent search is contained by the last set, we don't have to use the master list of objects every time - only when the previous set won't contain the newest search set. Here's these benchmarks.
 
 ```
 Value: @"a"
