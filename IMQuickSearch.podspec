@@ -7,7 +7,7 @@ Pod::Spec.new do |s|
   }
   s.source = {
     :git => 'https://github.com/Intermark/IMQuickSearch.git',
-    :tag => '1.1.0'
+    :tag => s.version
   }
   s.homepage    = 'https://github.com/Intermark'
   s.license     = 'License'
