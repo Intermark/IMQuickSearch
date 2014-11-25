@@ -22,12 +22,12 @@
 		B64BB737185B8780002885C2 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B64BB716185B8780002885C2 /* UIKit.framework */; };
 		B64BB73F185B8780002885C2 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = B64BB73D185B8780002885C2 /* InfoPlist.strings */; };
 		B64BB741185B8780002885C2 /* IMQuickSearchTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B64BB740185B8780002885C2 /* IMQuickSearchTests.m */; };
-		B64BB750185B8A07002885C2 /* IMQuickSearchFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = B64BB74F185B8A07002885C2 /* IMQuickSearchFilter.m */; };
 		B64BB754185B9ED3002885C2 /* IMPerson.m in Sources */ = {isa = PBXBuildFile; fileRef = B64BB753185B9ED3002885C2 /* IMPerson.m */; };
 		B64BB757185BA186002885C2 /* IMAnimal.m in Sources */ = {isa = PBXBuildFile; fileRef = B64BB756185BA186002885C2 /* IMAnimal.m */; };
 		B64BB75A185BA9F5002885C2 /* IMNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = B64BB759185BA9F5002885C2 /* IMNumber.m */; };
 		B690D98C1863A124003AA110 /* search-01.png in Resources */ = {isa = PBXBuildFile; fileRef = B690D98B1863A124003AA110 /* search-01.png */; };
-		B690D98F1863A709003AA110 /* IMQuickSearch.m in Sources */ = {isa = PBXBuildFile; fileRef = B690D98E1863A709003AA110 /* IMQuickSearch.m */; };
+		B6BCC2001A24E64A00C2C0A4 /* IMQuickSearch.m in Sources */ = {isa = PBXBuildFile; fileRef = B6BCC1FD1A24E64A00C2C0A4 /* IMQuickSearch.m */; };
+		B6BCC2011A24E64A00C2C0A4 /* IMQuickSearchFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = B6BCC1FF1A24E64A00C2C0A4 /* IMQuickSearchFilter.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,8 +61,6 @@
 		B64BB73C185B8780002885C2 /* IMQuickSearchTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "IMQuickSearchTests-Info.plist"; sourceTree = "<group>"; };
 		B64BB73E185B8780002885C2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		B64BB740185B8780002885C2 /* IMQuickSearchTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IMQuickSearchTests.m; sourceTree = "<group>"; };
-		B64BB74E185B8A07002885C2 /* IMQuickSearchFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IMQuickSearchFilter.h; path = Classes/IMQuickSearchFilter.h; sourceTree = SOURCE_ROOT; };
-		B64BB74F185B8A07002885C2 /* IMQuickSearchFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IMQuickSearchFilter.m; path = Classes/IMQuickSearchFilter.m; sourceTree = SOURCE_ROOT; };
 		B64BB752185B9ED3002885C2 /* IMPerson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMPerson.h; sourceTree = "<group>"; };
 		B64BB753185B9ED3002885C2 /* IMPerson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IMPerson.m; sourceTree = "<group>"; };
 		B64BB755185BA186002885C2 /* IMAnimal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMAnimal.h; sourceTree = "<group>"; };
@@ -70,8 +68,10 @@
 		B64BB758185BA9F5002885C2 /* IMNumber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMNumber.h; sourceTree = "<group>"; };
 		B64BB759185BA9F5002885C2 /* IMNumber.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IMNumber.m; sourceTree = "<group>"; };
 		B690D98B1863A124003AA110 /* search-01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "search-01.png"; sourceTree = "<group>"; };
-		B690D98D1863A709003AA110 /* IMQuickSearch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IMQuickSearch.h; path = Classes/IMQuickSearch.h; sourceTree = SOURCE_ROOT; };
-		B690D98E1863A709003AA110 /* IMQuickSearch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IMQuickSearch.m; path = Classes/IMQuickSearch.m; sourceTree = SOURCE_ROOT; };
+		B6BCC1FC1A24E64A00C2C0A4 /* IMQuickSearch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IMQuickSearch.h; path = ../../../ObjC/IMQuickSearch.h; sourceTree = "<group>"; };
+		B6BCC1FD1A24E64A00C2C0A4 /* IMQuickSearch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IMQuickSearch.m; path = ../../../ObjC/IMQuickSearch.m; sourceTree = "<group>"; };
+		B6BCC1FE1A24E64A00C2C0A4 /* IMQuickSearchFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IMQuickSearchFilter.h; path = ../../../ObjC/IMQuickSearchFilter.h; sourceTree = "<group>"; };
+		B6BCC1FF1A24E64A00C2C0A4 /* IMQuickSearchFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IMQuickSearchFilter.m; path = ../../../ObjC/IMQuickSearchFilter.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -178,10 +178,10 @@
 		B64BB74A185B8788002885C2 /* QuickSearch Classes */ = {
 			isa = PBXGroup;
 			children = (
-				B690D98D1863A709003AA110 /* IMQuickSearch.h */,
-				B690D98E1863A709003AA110 /* IMQuickSearch.m */,
-				B64BB74E185B8A07002885C2 /* IMQuickSearchFilter.h */,
-				B64BB74F185B8A07002885C2 /* IMQuickSearchFilter.m */,
+				B6BCC1FC1A24E64A00C2C0A4 /* IMQuickSearch.h */,
+				B6BCC1FD1A24E64A00C2C0A4 /* IMQuickSearch.m */,
+				B6BCC1FE1A24E64A00C2C0A4 /* IMQuickSearchFilter.h */,
+				B6BCC1FF1A24E64A00C2C0A4 /* IMQuickSearchFilter.m */,
 			);
 			name = "QuickSearch Classes";
 			sourceTree = "<group>";
@@ -299,14 +299,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B64BB750185B8A07002885C2 /* IMQuickSearchFilter.m in Sources */,
+				B6BCC2001A24E64A00C2C0A4 /* IMQuickSearch.m in Sources */,
 				B64BB723185B8780002885C2 /* IMAppDelegate.m in Sources */,
 				B64BB754185B9ED3002885C2 /* IMPerson.m in Sources */,
-				B690D98F1863A709003AA110 /* IMQuickSearch.m in Sources */,
 				B64BB71F185B8780002885C2 /* main.m in Sources */,
 				B64BB75A185BA9F5002885C2 /* IMNumber.m in Sources */,
 				B64BB757185BA186002885C2 /* IMAnimal.m in Sources */,
 				B64BB72C185B8780002885C2 /* IMViewController.m in Sources */,
+				B6BCC2011A24E64A00C2C0A4 /* IMQuickSearchFilter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -441,10 +441,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "IMQuickSearch/IMQuickSearch-Prefix.pch";
 				INFOPLIST_FILE = "IMQuickSearch/IMQuickSearch-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -454,9 +457,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "IMQuickSearch/IMQuickSearch-Prefix.pch";
 				INFOPLIST_FILE = "IMQuickSearch/IMQuickSearch-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
