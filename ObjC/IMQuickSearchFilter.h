@@ -33,6 +33,15 @@
  */
 + (IMQuickSearchFilter *)filterWithSearchArray:(NSArray *)searchArray keys:(NSArray *)keys;
 
+/**
+ Creates an IMQuickSearchFilter object from a given NSArray of objects and an NSArray of NSStrings that correspond to the keys/properties that you want to search over. Allows for input of alternative values to be searched.
+ @param searchArray         - NSArray of NSObjects to search over
+ @param keys                - NSArray of NSStrings that correspond to the properties of the searchArray objects that you want to focus on.
+ @param alternativeValues   - NSDictionary of NSArray that will have a list of alternative values to search.
+ @returns IMQuickSearchFilter
+ */
++ (IMQuickSearchFilter *)filterWithSearchArray:(NSArray *)searchArray keys:(NSArray *)keys alternativeValues:(NSDictionary *)alternativeValues;
+
 
 #pragma mark - Filter With Value
 /**

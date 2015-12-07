@@ -26,15 +26,21 @@
 @property (nonatomic, copy) NSSet *lastSearchSet;
 @property (nonatomic, copy) NSString *lastSearchValue;
 @property (nonatomic, copy) NSArray *keys;
+@property (nonatomic, copy) NSDictionary *alternativeSearchValues;
 @end
 
 @implementation IMQuickSearchFilter
 
 #pragma mark - Create Filter
 + (IMQuickSearchFilter *)filterWithSearchArray:(NSArray *)searchArray keys:(NSArray *)keys {
+    return [self filterWithSearchArray:searchArray keys:keys alternativeValues:nil];
+}
+
++ (IMQuickSearchFilter *)filterWithSearchArray:(NSArray *)searchArray keys:(NSArray *)keys alternativeValues:(NSDictionary *)alternativeValues {
     IMQuickSearchFilter *newFilter = [[IMQuickSearchFilter alloc] init];
     newFilter.searchSet = [NSSet setWithArray:searchArray];
     newFilter.keys = keys;
+    newFilter.alternativeSearchValues = alternativeValues;
     
     return newFilter;
 }
@@ -53,7 +59,8 @@
     
     // Set Up
     BOOL shouldUseLastSearch = [value isKindOfClass:[NSString class]] && [self checkString:value withString:self.lastSearchValue];
-    NSSet *newSearchSet = (self.lastSearchSet && shouldUseLastSearch) ? self.lastSearchSet : self.searchSet;
+    BOOL hasAlternativeSearchValues = self.alternativeSearchValues != nil && [self.alternativeSearchValues count] > 0;
+    NSSet *newSearchSet = (self.lastSearchSet && shouldUseLastSearch && !hasAlternativeSearchValues) ? self.lastSearchSet : self.searchSet;
     
     // Create Predicate
     NSPredicate *predicate = [self predicateForKeys:self.keys value:value];
@@ -81,8 +88,23 @@
         NSPredicate *existsPredicate = [NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
             return [evaluatedObject respondsToSelector:NSSelectorFromString(key)];
         }];
-        NSPredicate *containsPredicate = [value isKindOfClass:[NSString class]] ? [NSPredicate predicateWithFormat:@"(%K.description CONTAINS[cd] %@)", key, value] : [NSPredicate predicateWithFormat:@"(%K.description == %@)", key, value];
-        [predicates addObject:[NSCompoundPredicate andPredicateWithSubpredicates:@[existsPredicate,containsPredicate]]];
+        NSMutableArray *containsPredicateList = [@[[value isKindOfClass:[NSString class]] ?
+                                                   [NSPredicate predicateWithFormat:@"(%K.description CONTAINS[cd] %@)", key, value] :
+                                                   [NSPredicate predicateWithFormat:@"(%K.description == %@)", key, value]] mutableCopy];
+        //Check for alternative search values
+        if([value isKindOfClass:[NSString class]] && self.alternativeSearchValues != nil && [self.alternativeSearchValues count] > 0) {
+            for(NSString *altKeyValue in self.alternativeSearchValues) {
+                NSArray *alternativeValues = [self.alternativeSearchValues objectForKey:altKeyValue];
+                for (NSString *alternativeValue in alternativeValues) {
+                    NSString *tempSearchValue = [value stringByReplacingOccurrencesOfString:altKeyValue withString:alternativeValue];
+                    [containsPredicateList addObject:[NSPredicate predicateWithFormat:@"(%K.description CONTAINS[cd] %@)", key, tempSearchValue]];
+                }
+            }
+        }
+        //
+        NSCompoundPredicate *containsCompoundPredicate = [NSCompoundPredicate orPredicateWithSubpredicates:containsPredicateList];
+        //Add preidcates to compound predicate
+        [predicates addObject:[NSCompoundPredicate andPredicateWithSubpredicates:@[existsPredicate, containsCompoundPredicate]]];
     }
     
     return [NSCompoundPredicate orPredicateWithSubpredicates:predicates];
