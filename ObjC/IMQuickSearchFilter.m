@@ -96,7 +96,7 @@
             for(NSString *altKeyValue in self.alternativeSearchValues) {
                 NSArray *alternativeValues = [self.alternativeSearchValues objectForKey:altKeyValue];
                 for (NSString *alternativeValue in alternativeValues) {
-                    NSString *tempSearchValue = [value stringByReplacingOccurrencesOfString:altKeyValue withString:alternativeValue];
+                    NSString *tempSearchValue = [[value lowercaseString] stringByReplacingOccurrencesOfString:altKeyValue withString:alternativeValue];
                     [containsPredicateList addObject:[NSPredicate predicateWithFormat:@"(%K.description CONTAINS[cd] %@)", key, tempSearchValue]];
                 }
             }
