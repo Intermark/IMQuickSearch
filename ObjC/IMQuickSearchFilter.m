@@ -89,7 +89,7 @@
             return [evaluatedObject respondsToSelector:NSSelectorFromString(key)];
         }];
         NSMutableArray *containsPredicateList = [@[[value isKindOfClass:[NSString class]] ?
-                                                   [NSPredicate predicateWithFormat:@"(%K.description MATCHES[cd] %@)", key, value] :
+                                                   [NSPredicate predicateWithFormat:@"(%K.description CONTAINS[cd] %@)", key, value] :
                                                    [NSPredicate predicateWithFormat:@"(%K.description == %@)", key, value]] mutableCopy];
                                                    //Check for alternative search values
                                                    if([value isKindOfClass:[NSString class]] && self.alternativeSearchValues != nil && [self.alternativeSearchValues count] > 0) {
