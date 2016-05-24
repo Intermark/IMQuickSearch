@@ -105,7 +105,7 @@
                                                                    NSString *tempSearchValue = [regex stringByReplacingMatchesInString:[value lowercaseString]options:0 range:NSMakeRange(0, [value length]) withTemplate:altKeyValue];
                                                                }
 
-                                                               [containsPredicateList addObject:[NSPredicate predicateWithFormat:@"(%K.description MATCHES[cd] %@)", key, tempSearchValue]];
+                                                               [containsPredicateList addObject:[NSPredicate predicateWithFormat:@"(%K.description CONTAINS[cd] %@)", key, tempSearchValue]];
                                                            }
                                                        }
                                                    }
