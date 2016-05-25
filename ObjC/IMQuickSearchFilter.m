@@ -88,26 +88,32 @@
         NSPredicate *existsPredicate = [NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
             return [evaluatedObject respondsToSelector:NSSelectorFromString(key)];
         }];
+
+        NSString *matchValue = nil;
+        NSString *stringValue = nil;
+        if ([value isKindOfClass:[NSString class]]) {
+            stringValue = value;
+            matchValue = [NSString stringWithFormat:@".*(\\b%@\\b).*",
+                          [NSRegularExpression escapedPatternForString:stringValue]];
+        }
+
+
         NSMutableArray *containsPredicateList = [@[[value isKindOfClass:[NSString class]] ?
-                                                   [NSPredicate predicateWithFormat:@"(%K.description MATCHES[cd] %@)", key, value] :
+                                                   [NSPredicate predicateWithFormat:@"(%K.description MATCHES[cd] %@)", key, matchValue] :
                                                    [NSPredicate predicateWithFormat:@"(%K.description == %@)", key, value]] mutableCopy];
-                                                   //Check for alternative search values
-                                                   if([value isKindOfClass:[NSString class]] && self.alternativeSearchValues != nil && [self.alternativeSearchValues count] > 0) {
-                                                       for(NSString *altKeyValue in self.alternativeSearchValues) {
-                                                           NSArray *alternativeValues = [self.alternativeSearchValues objectForKey:altKeyValue];
-                                                           for (NSString *alternativeValue in alternativeValues) {
+        //Check for alternative search values
+        if([value isKindOfClass:[NSString class]] && self.alternativeSearchValues != nil && [self.alternativeSearchValues count] > 0) {
+            for(NSString *altKeyValue in self.alternativeSearchValues) {
+                NSArray *alternativeValues = [self.alternativeSearchValues objectForKey:altKeyValue];
+                for (NSString *alternativeValue in alternativeValues) {
+                    NSString *tempSearchValue = [[stringValue lowercaseString] stringByReplacingOccurrencesOfString:altKeyValue withString:alternativeValue];
 
-                                                               NSError *error = nil;
-                                                               NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:altKeyValue options:NSRegularExpressionCaseInsensitive error:&error];
-
-                                                               if (error == nil) {
-                                                                 NSString *tempSearchValue = [regex stringByReplacingMatchesInString:[value lowercaseString] options:0 range:NSMakeRange(0, [value length]) withTemplate:[alternativeValue lowercaseString]];
-                                                                 [containsPredicateList addObject:[NSPredicate predicateWithFormat:@"(%K.description MATCHES[cd] %@)", key, tempSearchValue]];
-                                                               }
-                                                           }
-                                                       }
-                                                   }
-                                                   //
+                    tempSearchValue = [NSString stringWithFormat:@".*(\\b%@\\b).*",
+                                  [NSRegularExpression escapedPatternForString:tempSearchValue]];
+                    [containsPredicateList addObject:[NSPredicate predicateWithFormat:@"(%K.description MATCHES[cd] %@)", key, tempSearchValue]];
+                }
+            }
+        }
         //
         NSCompoundPredicate *containsCompoundPredicate = [NSCompoundPredicate orPredicateWithSubpredicates:containsPredicateList];
         //Add preidcates to compound predicate
@@ -123,7 +129,7 @@
     if (searchString.length == 0) {
         return YES;
     }
-
+    
     // Evaluate with searchString
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF CONTAINS[cd] %@", searchString];
     return [predicate evaluateWithObject:mainString];
