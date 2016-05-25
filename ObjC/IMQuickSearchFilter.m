@@ -89,23 +89,21 @@
             return [evaluatedObject respondsToSelector:NSSelectorFromString(key)];
         }];
         NSMutableArray *containsPredicateList = [@[[value isKindOfClass:[NSString class]] ?
-                                                   [NSPredicate predicateWithFormat:@"(%K.description CONTAINS[cd] %@)", key, value] :
+                                                   [NSPredicate predicateWithFormat:@"(%K.description MATCHES[cd] %@)", key, value] :
                                                    [NSPredicate predicateWithFormat:@"(%K.description == %@)", key, value]] mutableCopy];
                                                    //Check for alternative search values
                                                    if([value isKindOfClass:[NSString class]] && self.alternativeSearchValues != nil && [self.alternativeSearchValues count] > 0) {
                                                        for(NSString *altKeyValue in self.alternativeSearchValues) {
                                                            NSArray *alternativeValues = [self.alternativeSearchValues objectForKey:altKeyValue];
                                                            for (NSString *alternativeValue in alternativeValues) {
-                                                               NSError *error = nil;
-                                                               NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:value options:NSRegularExpressionCaseInsensitive error:&error];
 
-                                                               NSString *tempSearchValue = @"";
+                                                               NSError *error = nil;
+                                                               NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:altKeyValue options:NSRegularExpressionCaseInsensitive error:&error];
 
                                                                if (error == nil) {
-                                                                   NSString *tempSearchValue = [regex stringByReplacingMatchesInString:[value lowercaseString]options:0 range:NSMakeRange(0, [value length]) withTemplate:altKeyValue];
+                                                                 NSString *tempSearchValue = [regex stringByReplacingMatchesInString:[value lowercaseString] options:0 range:NSMakeRange(0, [value length]) withTemplate:[alternativeValue lowercaseString]];
+                                                                 [containsPredicateList addObject:[NSPredicate predicateWithFormat:@"(%K.description MATCHES[cd] %@)", key, tempSearchValue]];
                                                                }
-
-                                                               [containsPredicateList addObject:[NSPredicate predicateWithFormat:@"(%K.description CONTAINS[cd] %@)", key, tempSearchValue]];
                                                            }
                                                        }
                                                    }
