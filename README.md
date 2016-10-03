@@ -17,7 +17,7 @@ All of the important classes are located in the top-level directory `Classes`. T
 
 Just `#import "IMQuickSearch.h"` in any class you want to use IMQuickSearch in.
 
-**Cocoapods**
+**CocoaPods**
 
 `pod 'IMQuickSearch'`
 
